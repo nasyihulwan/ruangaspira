@@ -1,0 +1,59 @@
+/* Apply Montserrat font globally */
+body {
+	font-family: "Montserrat", sans-serif;
+}
+
+.image-background {
+	background: url("../../../assets/landing/img/background-upi.jpg") no-repeat
+		center center/cover;
+	background-size: cover;
+	background-position: center;
+	background-color: rgba(0, 0, 0, 0.4); /* lapisan gelap transparan */
+	background-blend-mode: multiply; /* mencampur warna dengan gambar */
+	border-top-right-radius: 0.3rem;
+	border-bottom-right-radius: 0.3rem;
+	color: white;
+}
+
+.image-background p {
+	text-align: justify;
+}
+
+.gradient-custom-2 {
+	background: #fccb90;
+	background: -webkit-linear-gradient(
+		to right,
+		#ee7724,
+		#d8363a,
+		#dd3675,
+		#b44593
+	);
+	background: linear-gradient(to right, #1e4067, #ff3028);
+}
+
+.btn-outline-danger {
+	border: 2px solid #dc3545; /* border merah seperti default bootstrap */
+	transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+	color: #dc3545; /* warna teks merah */
+	background: transparent;
+	padding: 0.375rem 0.75rem; /* ukuran default */
+}
+
+.btn-outline-danger:hover {
+	background: linear-gradient(to right, #1e4067, #ff3028) !important;
+	color: white !important;
+	box-shadow: none !important;
+}
+
+@media (min-width: 768px) {
+	.gradient-form {
+		height: 100vh !important;
+	}
+}
+
+@media (min-width: 769px) {
+	.gradient-custom-2 {
+		border-top-right-radius: 0.3rem;
+		border-bottom-right-radius: 0.3rem;
+	}
+}

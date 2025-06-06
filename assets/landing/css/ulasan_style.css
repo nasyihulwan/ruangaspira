@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+* {
+	font-family: "Montserrat", sans-serif;
+}
+
+html,
+body,
+.intro {
+	height: 100%;
+}
+
+.bg-image-vertical {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+		url("../../../assets/landing/img/background-upi.jpg") no-repeat center
+			center/cover;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	z-index: -1;
+}
+
+section {
+	z-index: 1;
+	position: relative;
+}
+
+.gradient-custom-2 {
+	background: #fccb90;
+	background: linear-gradient(to right, #1e4067, #ff3028);
+}
+
+footer {
+	margin-top: 3rem; /* Give space from the form section */
+}
+
+footer a:hover,
+footer a:hover i {
+	color: #ff3028 !important; /* Same red gradient as the button */
+}
+
+.ig-link {
+	transition: color 0.3s ease;
+}
+
+.ig-link i {
+	transition: color 0.3s ease;
+}
+
+/* Hover effect red */
+.ig-link:hover,
+.ig-link:hover i {
+	color: #ff3028 !important;
+}

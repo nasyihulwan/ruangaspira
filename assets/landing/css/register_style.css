@@ -1,0 +1,84 @@
+/* Gunakan font Montserrat untuk semua */
+body {
+	font-family: "Montserrat", sans-serif;
+}
+
+/* Untuk memastikan gambar samping register tampak penuh dan rapi */
+.image-background {
+	background: url("../../../assets/landing/img/background-upi.jpg") no-repeat
+		center center/cover;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: rgba(0, 0, 0, 0.4);
+	background-blend-mode: multiply;
+	border-top-right-radius: 0.3rem;
+	border-bottom-right-radius: 0.3rem;
+	color: white;
+}
+
+.image-background p {
+	text-align: justify;
+}
+
+/* Gradient untuk tombol */
+.gradient-custom-2 {
+	background: #fccb90;
+	background: -webkit-linear-gradient(
+		to right,
+		#ee7724,
+		#d8363a,
+		#dd3675,
+		#b44593
+	);
+	background: linear-gradient(to right, #1e4067, #ff3028);
+	border: none;
+}
+
+/* Tombol Login Outline */
+.btn-outline-danger {
+	border: 2px solid #dc3545;
+	color: #dc3545;
+	background: transparent;
+	padding: 0.375rem 0.75rem;
+	transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+	background: linear-gradient(to right, #1e4067, #ff3028) !important;
+	color: white !important;
+	box-shadow: none !important;
+}
+
+/* Umum */
+@media (min-width: 768px) {
+	.gradient-form {
+		height: 100vh !important;
+	}
+}
+
+/* Laptop hingga 1700px */
+@media (min-width: 768px) and (max-width: 1700px) {
+	.gradient-form {
+		height: 115vh !important;
+	}
+}
+
+/* Agar sisi kanan tetap berbentuk bulat */
+@media (min-width: 769px) {
+	.gradient-custom-2 {
+		border-top-right-radius: 0.3rem;
+		border-bottom-right-radius: 0.3rem;
+	}
+}
+
+/* Perbaikan tambahan untuk padding bawah tombol */
+.text-center.pt-1.mb-5.pb-1 {
+	padding-bottom: 1rem !important;
+	margin-bottom: 1rem !important;
+}
+
+/* Perbaiki teks “Already have an account?” */
+.d-flex.align-items-center.justify-content-center.pb-4 a.text-muted {
+	margin-right: 10px;
+}

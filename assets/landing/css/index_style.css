@@ -1,0 +1,402 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: "Montserrat", serif;
+	line-height: 1.6;
+	background-color: #fff;
+	color: #333;
+}
+
+.header-hero {
+	background: url("../../../assets/landing/img/background-upi.jpg") no-repeat
+		center center/cover;
+	color: white;
+	padding-bottom: 4rem;
+	position: relative;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.header-hero::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 0;
+}
+
+.navbar {
+	display: flex;
+	align-items: center;
+	background: white;
+	margin: 1rem auto;
+	padding: 0.8rem 2.5rem;
+	border-radius: 40px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	width: fit-content;
+	position: fixed;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 100;
+	gap: 50rem; /* Adjust this value for desired spacing */
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+}
+
+.logo img {
+	height: 50px;
+}
+
+.nav-links {
+	display: flex;
+	gap: 1.8rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.nav-links li a {
+	color: #333;
+	font-weight: 500;
+	transition: color 0.3s;
+	text-decoration: none;
+}
+
+.nav-links li a:hover {
+	color: #ff3333;
+}
+
+.hero-text {
+	text-align: center;
+	position: relative;
+	z-index: 1;
+	padding: 2rem;
+	margin-top: 5rem;
+}
+
+.hero-text h1 {
+	font-size: 2.8rem;
+	margin-bottom: 1rem;
+}
+
+.hero-text p {
+	font-size: 1.2rem;
+	margin-bottom: 2rem;
+}
+
+.btn-lapor {
+	background: linear-gradient(to right, #1e4067, #ff3028);
+	color: white;
+	padding: 0.8rem 1.5rem;
+	border: none;
+	border-radius: 30px;
+	text-decoration: none;
+	font-weight: bold;
+	transition: background 0.3s ease;
+}
+
+.btn-lapor:hover {
+	background: linear-gradient(to right, #162f4b, #b4221d);
+}
+
+.about {
+	padding: 4rem 2rem;
+	background-color: #fff;
+}
+
+.about-container {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	max-width: 1200px;
+	margin: auto;
+	gap: 2rem;
+}
+
+.about-text {
+	flex: 1 1 55%;
+	text-align: justify;
+}
+
+.about-text h2 {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+	color: #222;
+}
+
+.about-text p {
+	margin-bottom: 1rem;
+	color: #555;
+}
+
+.about-img {
+	flex: 1 1 35%;
+	text-align: center;
+}
+
+.about-img img {
+	max-width: 250px;
+}
+
+.faq {
+	padding: 4rem 2rem;
+	background-color: #fafafa;
+}
+
+.faq-container {
+	max-width: 800px;
+	margin: auto;
+}
+
+.faq-container h2 {
+	text-align: center;
+	margin-bottom: 2rem;
+	font-size: 2rem;
+	color: #222;
+}
+
+.faq-item {
+	margin-bottom: 1rem;
+	border-bottom: 1px solid #ddd;
+}
+
+.faq-question {
+	width: 100%;
+	text-align: left;
+	background: none;
+	border: none;
+	font-size: 1.1rem;
+	font-weight: bold;
+	padding: 1rem 0;
+	cursor: pointer;
+	transition: color 0.3s ease;
+	color: #333;
+	font-family: "Montserrat", serif;
+}
+
+.faq-question:hover {
+	color: #234c7a;
+}
+
+.faq-answer {
+	max-height: 0;
+	overflow: hidden;
+	opacity: 0;
+	padding-left: 1rem;
+	padding-top: 0;
+	padding-bottom: 0;
+	transition: max-height 0.5s ease, opacity 0.5s ease, padding 0.5s ease;
+	color: #555;
+	font-size: 0.95rem;
+}
+
+.faq-item.active .faq-answer {
+	max-height: 500px;
+	opacity: 1;
+	padding-top: 0.5rem;
+	padding-bottom: 1rem;
+}
+
+.review {
+	padding: 4rem 2rem;
+	background-color: #fff;
+}
+
+.review-container {
+	max-width: 1000px;
+	margin: auto;
+	text-align: center;
+}
+
+.review-container h2 {
+	font-size: 2rem;
+	margin-bottom: 2rem;
+	color: #222;
+}
+
+.review-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2rem;
+	justify-content: center;
+}
+
+.review-item {
+	background-color: #fff;
+	padding: 1.5rem;
+	border-radius: 20px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+	max-width: 300px;
+	text-align: left;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-item:hover {
+	transform: translateY(-8px);
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+.review-isi {
+	font-style: italic;
+	color: #444;
+	margin-bottom: 1rem;
+}
+
+.review-nama {
+	font-weight: bold;
+	color: #222;
+	text-align: right;
+	font-size: 0.9rem;
+}
+
+.login {
+	text-align: center;
+	background-color: #fafafa;
+	padding: 60px 20px;
+}
+
+.login h2 {
+	font-size: 24px;
+	margin-bottom: 10px;
+	color: #222;
+}
+
+.login p {
+	font-size: 14px;
+	color: #666;
+	max-width: 600px;
+	margin: 0 auto 40px auto;
+}
+
+.login-button {
+	display: inline-block;
+	background: linear-gradient(to right, #1e4067, #ff3028);
+	color: white;
+	text-decoration: none;
+	padding: 15px 40px;
+	border-radius: 30px;
+	font-size: 12px;
+	font-weight: bold;
+	transition: background-color 0.3s ease;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-button:hover {
+	background-color: #cc0000;
+	box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+}
+
+section,
+section * {
+	border: none !important;
+	outline: none !important;
+	text-decoration: none !important;
+	scroll-margin-top: 100px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	border-bottom: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.footer {
+	background-color: #f5f5f5;
+	padding: 1.5rem 2rem;
+	text-align: center;
+	border-top: 1px solid #ddd;
+}
+
+.footer-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.95rem;
+	color: #333;
+}
+
+.ig-link {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: #333;
+	font-weight: 500;
+	text-decoration: none;
+	transition: color 0.3s ease;
+	font-size: 1.2rem;
+}
+
+.ig-link:hover {
+	color: #e1306c;
+}
+
+@keyframes fadeInUp {
+	0% {
+		opacity: 0;
+		transform: translateY(40px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.about-container {
+	opacity: 0;
+	transform: translateY(40px);
+	transition: all 0.6s ease-out;
+}
+
+.about-container.show {
+	opacity: 1;
+	transform: translateY(0);
+	animation: fadeInUp 1.5s ease forwards;
+}
+
+.faq-container {
+	opacity: 0;
+	transform: translateY(40px);
+}
+
+.faq-container.show {
+	animation: fadeInUp 1s ease forwards;
+}
+
+.review-container {
+	opacity: 0;
+	transform: translateY(50px);
+}
+
+.review-container.show {
+	animation: fadeInUp 1s ease forwards;
+}
+
+.login-container {
+	opacity: 0;
+	transform: translateY(50px);
+}
+
+.login-container.show {
+	animation: fadeInUp 1s ease forwards;
+}
