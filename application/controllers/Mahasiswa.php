@@ -60,11 +60,6 @@ class Mahasiswa extends CI_Controller
         }
     }
 
-    public function tanggapanBalik()
-    {
-        $this->M_Mahasiswa->_sendTanggapanBalik();
-    }
-
     public function profile()
     {
         $data['user'] = $this->M_User->getMahasiswaCurrentSession();
