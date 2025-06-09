@@ -15,24 +15,23 @@ class M_Laporan extends CI_Model
 
         return $this->db->get()->result();
     }
-    function cetakLaporanSelesai()
-    {
-        $this->db->select('
-        masyarakat.nik as m_nik,masyarakat.nama as nama_masyarakat,masyarakat.telp as m_telp,
-        pengaduan.id_pengaduan as p_id,pengaduan.judul_laporan,pengaduan.kategori,tgl_pengaduan,tgl_kejadian,isi_laporan,tempat_kejadian,pengaduan.lampiran_1 as pl_1,pengaduan.lampiran_2 as pl_2,pengaduan.lampiran_3 as pl_3,
-        tanggapan.id_tanggapan,tanggapan.tgl_tanggapan as tgl_tanggapan_petugas,tanggapan.tgl_tanggapan_balik as tgl_tanggapan_masyarakat,tanggapan.tanggapan as tanggapan_petugas,tanggapan.tanggapan_balik as tanggapan_masyarakat,
-        pengaduan_selesai.id_selesai,tgl_selesai,pengaduan_selesai.lampiran_1 as ps_1,pengaduan_selesai.lampiran_2 as ps_2,pengaduan_selesai.lampiran_3 as ps_3,pengaduan_selesai.id_petugas as petugas_selesai,
+
+function cetakLaporanSelesai()
+{
+    $this->db->select('
+        mahasiswa.nim as m_nim, mahasiswa.nama as nama_mahasiswa, mahasiswa.telp as m_telp,
+        aspirasi.id_aspirasi as a_id, aspirasi.judul_aspirasi, aspirasi.kategori, tgl_aspirasi, tgl_kejadian, isi_laporan, tempat_kejadian, aspirasi.lampiran_1 as al_1, aspirasi.lampiran_2 as al_2, aspirasi.lampiran_3 as al_3,
+        aspirasi_selesai.id_selesai, tgl_selesai, aspirasi_selesai.lampiran_1 as as_1, aspirasi_selesai.lampiran_2 as as_2, aspirasi_selesai.lampiran_3 as as_3, aspirasi_selesai.id_petugas as petugas_selesai,
         petugas.*,
-        pengaduan_kategori.*
-        ');
-        $this->db->from('masyarakat');
-        $this->db->join('pengaduan', 'masyarakat.nik = pengaduan.nik');
-        $this->db->join('tanggapan', 'pengaduan.id_pengaduan = tanggapan.id_pengaduan');
-        $this->db->join('pengaduan_selesai', 'pengaduan.id_pengaduan = pengaduan_selesai.id_pengaduan');
-        $this->db->join('petugas', 'pengaduan_selesai.id_petugas = petugas.id_petugas');
-        $this->db->join('pengaduan_kategori', 'pengaduan.kategori = pengaduan_kategori.id');
-        $this->db->where('pengaduan.id_pengaduan', $this->uri->segment(4));
-        $this->db->where('pengaduan.status', 'selesai');
-        return $this->db->get()->row_array();
-    }
+        aspirasi_kategori.nama_kategori as nama_kategori_aspirasi
+    ');
+    $this->db->from('mahasiswa');
+    $this->db->join('aspirasi', 'mahasiswa.nim = aspirasi.nim');
+    $this->db->join('aspirasi_selesai', 'aspirasi.id_aspirasi = aspirasi_selesai.id_aspirasi');
+    $this->db->join('petugas', 'aspirasi_selesai.id_petugas = petugas.id_petugas');
+    $this->db->join('aspirasi_kategori', 'aspirasi.kategori = aspirasi_kategori.id');
+    $this->db->where('aspirasi.id_aspirasi', $this->uri->segment(3));
+    $this->db->where('aspirasi.status', 'selesai');
+    return $this->db->get()->row_array();
+}
 }

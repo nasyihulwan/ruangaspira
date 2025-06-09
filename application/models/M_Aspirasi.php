@@ -199,9 +199,9 @@ class M_Aspirasi extends CI_Model
     public function tolakAspirasi()
     {
         $id = $this->uri->segment(4);
-        $this->db->set('status', 'tolak');
-        $this->db->where('id_aspirasi', $id);
-        $this->db->update('aspirasi');
+        // $this->db->set('status', 'tolak');
+        // $this->db->where('id_aspirasi', $id);
+        // $this->db->update('aspirasi');
 
         $data = [
             'id_tolak' => rand(10000, 99999),
@@ -211,7 +211,7 @@ class M_Aspirasi extends CI_Model
         ];
         $this->db->insert('aspirasi_ditolak', $data);
         $this->session->set_flashdata('tolakSuccess', 'Action Completed');
-        redirect('aspirasi/vnv');
+        redirect('aspirasi/ditolak');
     }
 
     function getAspirasiKategori()

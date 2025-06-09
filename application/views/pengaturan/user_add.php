@@ -17,21 +17,18 @@
             </div>
         </div>
 
-        <!-- Basic Tables start -->
         <section class="section col-6">
             <div class="card">
                 <div class="card-body">
-                    <a href="<?= site_url() ?>user/add/masyarakat" class="col-12 btn btn-info mb-3">Masyarakat</a>
+                    <a href="<?= site_url() ?>user/add/mahasiswa" class="col-12 btn btn-info mb-3">Mahasiswa</a>
                     <a href="<?= site_url() ?>user/add/petugas" class="col-12 btn btn-primary">Petugas</a>
                 </div>
             </div>
         </section>
-        <?php if ($this->uri->segment(3) == 'petugas') { 
+        <?php if ($this->uri->segment(3) == 'petugas') {
             $this->load->view('pengaturan/petugas_add');
-        } else if ($this->uri->segment(3) == 'masyarakat') {
-            $this->load->view('pengaturan/masyarakat_add');
+        } else if ($this->uri->segment(3) == 'mahasiswa') { // Changed from 'masyarakat'
+            $this->load->view('pengaturan/mahasiswa_add'); // Changed from 'masyarakat_add'
         } ?>
-        <!-- Basic Tables end -->
-
-
-    </div>
+        </div>
+</div>

@@ -3,7 +3,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_User extends CI_Model
 {
-    function _addMahasiswa()
+    public function _addPetugas()
+    {
+        $data = [
+            'nama_petugas' => htmlspecialchars($this->input->post('nama_petugas', true)),
+            'username' => htmlspecialchars($this->input->post('username', true)),
+            'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+            'telp' => htmlspecialchars($this->input->post('telp', true)),
+            'level' => htmlspecialchars($this->input->post('level', true)),
+            'status' => 'active'
+        ];
+        $this->db->insert('petugas', $data);
+        $this->session->set_flashdata('addPetugasSuccess', 'Action Completed');
+        redirect('master/petugas');
+    }
+
+    public function _addMahasiswa()
     {
         $data = [
             'nim' => htmlspecialchars($this->input->post('nim', true)),
@@ -11,54 +26,30 @@ class M_User extends CI_Model
             'username' => htmlspecialchars($this->input->post('username', true)),
             'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
             'status' => 'active',
-            'telp' => $this->input->post('telp'),
-            'alamat' => $this->input->post('alamat')
+            'telp' => htmlspecialchars($this->input->post('telp', true)),
+            'angkatan' => htmlspecialchars($this->input->post('angkatan', true)),
+            'prodi' => htmlspecialchars($this->input->post('prodi', true)),
+            'alamat' => htmlspecialchars($this->input->post('alamat', true))
         ];
         $this->db->insert('mahasiswa', $data);
         $this->session->set_flashdata('addMahasiswaSuccess', 'Action Completed');
         redirect('master/mahasiswa');
     }
 
-    function _addPetugas()
+    public function getAngkatanList()
     {
-        $data = [
-            'id_petugas' => rand(10000, 99999),
-            'nama_petugas' => htmlspecialchars($this->input->post('nama_petugas', true)),
-            'username' => htmlspecialchars($this->input->post('username', true)),
-            'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-            'telp' => $this->input->post('telp'),
-            'level' => $this->input->post('level'),
-            'status' => 'active',
-        ];
-        $this->db->insert('petugas', $data);
-        $this->session->set_flashdata('addPetugasSuccess', 'Action Completed');
-        redirect('master/petugas');
+        $this->db->order_by('tahun', 'ASC');
+        return $this->db->get('angkatan')->result();
     }
 
-    function getMahasiswaCurrentSession()
+    public function getProdiList()
     {
-        return $this->db->get_where('mahasiswa', ['nim' => $this->session->userdata('nim')])->row_array();
+        $this->db->order_by('nama_prodi', 'ASC');
+        return $this->db->get('prodi')->result();
     }
 
-    function updateStatusMahasiswa()
+    public function getPetugasLevels()
     {
-        $nim = $this->uri->segment(3);
-
-        $this->db->set('status', $this->input->post('status'));
-        $this->db->where('nim', $nim);
-        $this->db->update('mahasiswa');
-
-        redirect('master/mahasiswa');
-    }
-
-    function updateStatusPetugas()
-    {
-        $id_petugas = $this->uri->segment(3);
-
-        $this->db->set('status', $this->input->post('status'));
-        $this->db->where('id_petugas', $id_petugas);
-        $this->db->update('petugas');
-
-        redirect('master/petugas');
+        return ['master_admin', 'hima_tekkom', 'prodi_tekkom'];
     }
 }

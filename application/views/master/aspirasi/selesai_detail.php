@@ -129,7 +129,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6 d-flex">
-                                        <a href="<?= site_url() ?>pengAspirasi/selesai"
+                                        <a href="<?= site_url() ?>aspirasi/selesai"
                                             class="btn btn-block btn-outline-secondary me-1 mb-1">KEMBALI</a>
                                     </div>
                                     <div class="col-6 d-flex">

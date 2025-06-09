@@ -36,6 +36,7 @@ class Ditolak extends CI_Controller
         $this->db->delete('aspirasi_ditolak');
 
         $this->db->set('status', '0');
+        $this->db->set('tgl_ditolak', NULL);
         $this->db->where('id_aspirasi', $id);
         $this->db->update('aspirasi');
 

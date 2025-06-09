@@ -96,7 +96,7 @@ document.getElementById("hapusTolak").addEventListener("click", async (e) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isDenied) {
             window.location =
-                `<?= site_url() ?>pengaduan/ditolak/hapus/` + $("#id_pengaduan_row").val();
+                `<?= site_url() ?>aspirasi/ditolak/hapus/` + $("#id_aspirasi_row").val();
         }
     })
 
@@ -111,7 +111,7 @@ document.getElementById("pulihkanTolak").addEventListener("click", async (e) => 
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             window.location =
-                `<?= site_url() ?>pengaduan/ditolak/pulihkan/` + $("#id_pengaduan_row").val();
+                `<?= site_url() ?>aspirasi/ditolak/pulihkan/` + $("#id_aspirasi_row").val();
         }
     })
 

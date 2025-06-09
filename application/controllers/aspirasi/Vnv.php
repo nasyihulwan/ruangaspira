@@ -64,12 +64,12 @@ class Vnv extends CI_Controller
             $id_aspirasi_real = $queryAspirasi['id_aspirasi'];
 
             $data_update = [
-                'status'        => 'ditolak',
-                'tgl_ditolak'   => date('Y-m-d H:i:s'),
-                'alasan_tolak'  => $alasan_tolak
+                'status'        => 'tolak',
+                'tgl_ditolak'   => date('Y-m-d H:i:s')
             ];
 
             if ($this->M_Aspirasi->updateAspirasi($id_aspirasi_real, $data_update)) {
+                $this->M_Aspirasi->tolakAspirasi();
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Aspirasi berhasil ditolak.</div>');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal menolak aspirasi.</div>');
