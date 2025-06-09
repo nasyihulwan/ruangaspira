@@ -16,17 +16,7 @@ class Landing extends CI_Controller
 
     public function index()
     {
-        $data['ulasan'] = $this->M_Landing->queryTanggapanMahasiswa();
-
-        // $this->load->view('landing/_partials/_head');
-        // $this->load->view('landing/_partials/_headers/landing_header');
-        // $this->load->view('landing/_partials/_about');
-        // $this->load->view('landing/_partials/_faq');
-        // $this->load->view('landing/_partials/_review');
-        // $this->load->view('landing/_partials/_login');
-        // $this->load->view('landing/_partials/_footer');
-        // $this->load->view('landing/_partials/js');
-
-		$this->load->view('landing/index.php');
+        $data['ulasan_mahasiswa'] = $this->M_Landing->queryTanggapanMahasiswa();
+		$this->load->view('landing/index.php', $data);
     }
 }

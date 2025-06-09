@@ -3,20 +3,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_User extends CI_Model
 {
-    function _addMasyarakat()
+    function _addMahasiswa()
     {
         $data = [
-            'nik' => htmlspecialchars($this->input->post('nik', true)),
-            'nama' => htmlspecialchars($this->input->post('nama_masyarakat', true)),
+            'nim' => htmlspecialchars($this->input->post('nim', true)),
+            'nama' => htmlspecialchars($this->input->post('nama', true)),
             'username' => htmlspecialchars($this->input->post('username', true)),
             'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
             'status' => 'active',
             'telp' => $this->input->post('telp'),
             'alamat' => $this->input->post('alamat')
         ];
-        $this->db->insert('masyarakat', $data);
-        $this->session->set_flashdata('addMasyarakatSuccess', 'Action Completed');
-        redirect('master/masyarakat');
+        $this->db->insert('mahasiswa', $data);
+        $this->session->set_flashdata('addMahasiswaSuccess', 'Action Completed');
+        redirect('master/mahasiswa');
     }
 
     function _addPetugas()
@@ -35,20 +35,20 @@ class M_User extends CI_Model
         redirect('master/petugas');
     }
 
-    function getMasyarakatCurrentSession()
+    function getMahasiswaCurrentSession()
     {
-        return $this->db->get_where('masyarakat', ['nik' => $this->session->userdata('nik')])->row_array();
+        return $this->db->get_where('mahasiswa', ['nim' => $this->session->userdata('nim')])->row_array();
     }
 
-    function updateStatusMasyarakat()
+    function updateStatusMahasiswa()
     {
-        $nik = $this->uri->segment(3);
+        $nim = $this->uri->segment(3);
 
         $this->db->set('status', $this->input->post('status'));
-        $this->db->where('nik', $nik);
-        $this->db->update('masyarakat');
+        $this->db->where('nim', $nim);
+        $this->db->update('mahasiswa');
 
-        redirect('master/masyarakat');
+        redirect('master/mahasiswa');
     }
 
     function updateStatusPetugas()
@@ -61,6 +61,4 @@ class M_User extends CI_Model
 
         redirect('master/petugas');
     }
-
-
 }

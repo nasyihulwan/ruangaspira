@@ -163,29 +163,47 @@ h6 {
                             </div>
                         </div>
                         <div class="col-sm-8">
-                            <div class="card-block mb-5">
-                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Informasi</h6>
-                                <div class="row">
-                                    <div class="col-sm-6 mb-2">
-                                        <p class="m-b-10 f-w-600">NIK</p>
-                                        <h6 class="text-muted f-w-400"><?= $user['nik'] ?></h6>
-                                    </div>
-                                    <div class="col-sm-6 mb-2">
-                                        <p class="m-b-10 f-w-600">Nama</p>
-                                        <h6 class="text-muted f-w-400"><?= $user['nama'] ?></h6>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 mb-2">
-                                        <p class="m-b-10 f-w-600">Username</p>
-                                        <h6 class="text-muted f-w-400"> <?= $user['username'] ?></h6>
-                                    </div>
-                                    <div class="col-sm-6 mb-2">
-                                        <p class="m-b-10 f-w-600">Telp</p>
-                                        <h6 class="text-muted f-w-400"><?= $user['telp'] ?></h6>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="col-sm-8">
+    <div class="card-block mb-5">
+        <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Informasi Akun</h6>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+                <p class="m-b-10 f-w-600">NIM</p>
+                <h6 class="text-muted f-w-400"><?= $user['nim']; ?></h6>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <p class="m-b-10 f-w-600">Nama Lengkap</p>
+                <h6 class="text-muted f-w-400"><?= $user['nama']; ?></h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+                <p class="m-b-10 f-w-600">Program Studi</p>
+                <h6 class="text-muted f-w-400"><?= $user['prodi']; ?></h6>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <p class="m-b-10 f-w-600">Angkatan</p>
+                <h6 class="text-muted f-w-400"><?= $user['angkatan']; ?></h6>
+            </div>
+        </div>
+        <div class="row">
+             <div class="col-sm-6 mb-3">
+                <p class="m-b-10 f-w-600">Username</p>
+                <h6 class="text-muted f-w-400"><?= $user['username']; ?></h6>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <p class="m-b-10 f-w-600">Telp / Nomor Ponsel</p>
+                <h6 class="text-muted f-w-400"><?= $user['telp']; ?></h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 mb-3">
+                <p class="m-b-10 f-w-600">Alamat</p>
+                <h6 class="text-muted f-w-400"><?= $user['alamat']; ?></h6>
+            </div>
+        </div>
+    </div>
+</div>
                             <!-- <div class="card-block joined mt-3">
                                 <p class="card-text "><small class="text-muted">Bergabung sejak
                                         <?= date('d F Y') ?></small></p>

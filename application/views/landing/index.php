@@ -7,8 +7,13 @@
     <title>RuangAspira Teknik Komputer</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="<?= base_url() ?>assets/landing/css/index_style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
 </head>
+
+
 
 <body>
     <header class="header-hero" id="home">
@@ -34,7 +39,7 @@
             <h1>Suarakan Aspirasimu di Teknik Komputer</h1>
             <p>Media penghubung antara mahasiswa dan pengelola program studi Teknik Komputer</p>
             <?php if ($this->session->userdata('nim') != null || $this->session->userdata('id_petugas') != null): ?>
-            <a href="<?= site_url('aspirasi') ?>" class="btn-lapor">Aspirasikan Sekarang</a>
+            <a href="<?= site_url('lapor') ?>" class="btn-lapor">Aspirasikan Sekarang</a>
             <?php else: ?>
             <a href="<?= site_url('auth/login') ?>" class="btn-lapor">Masuk untuk Aspirasi</a>
             <?php endif; ?>
@@ -50,7 +55,7 @@
                     yang ditujukan khusus untuk mahasiswa Program Studi Teknik Komputer.
                 </p>
                 <p>
-                    ASMA hadir sebagai bentuk partisipasi aktif mahasiswa dalam meningkatkan kualitas layanan akademik,
+                    RuangAspira! hadir sebagai bentuk partisipasi aktif mahasiswa dalam meningkatkan kualitas layanan akademik,
                     sarana dan prasarana, serta kebijakan-kebijakan yang berlaku di lingkungan Teknik Komputer.
                 </p>
                 <p>
@@ -98,34 +103,37 @@
         </div>
     </section>
 
-    <section class="review" id="review">
-        <div class="review-container">
-            <h2>Ulasan Mahasiswa</h2>
-            <div class="review-list">
-                <div class="review-item">
-                    <p class="review-isi">“Platform ini sangat membantu menyampaikan keresahan mahasiswa.”</p>
-                    <p class="review-nama">– Nasyih, Teknik Komputer 2023</p>
-                </div>
-                <div class="review-item">
-                    <p class="review-isi">“Responsnya cepat dan transparan. Keren!”</p>
-                    <p class="review-nama">– Subhan, Teknik Komputer 2023</p>
-                </div>
-                <div class="review-item">
-                    <p class="review-isi">“Harapannya makin banyak yang aktif pake ASMA.”</p>
-                    <p class="review-nama">– Raras, Teknik Komputer 2023</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="review" id="review">
+    <div class="review-container">
+        <h2>Ulasan Mahasiswa</h2>
 
-    <section class="login" id="login">
-        <div class="login-container">
-            <h2>Beri Ulasan</h2>
-            <p>Anda dapat memberikan layanan LAPMAS ulasan. Kritik & Saran akan sangat membantu kami untuk terus
-                berkembang.</p>
-            <a href="login.html" class="login-button">LOGIN UNTUK MEMBERI ULASAN</a>
-        </div>
-    </section>
+        <?php if (!empty($ulasan_mahasiswa)) : ?>
+            <div class="owl-carousel owl-theme review-carousel">
+                <?php foreach ($ulasan_mahasiswa as $ulasan) : ?>
+                    <div class="item"> <div class="review-item text-center">
+                            <p class="review-isi">“<?= htmlspecialchars($ulasan->ulasan); ?>”</p>
+                            <p class="review-nama">– <?= htmlspecialchars($ulasan->mn); ?>, <?= htmlspecialchars($ulasan->prodi); ?> <?= htmlspecialchars($ulasan->angkatan); ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else : ?>
+            <p class="text-center">Belum ada ulasan mahasiswa saat ini.</p>
+        <?php endif; ?>
+    </div>
+</section>
+
+<section class="login" id="login">
+    <div class="login-container">
+        <h2>Beri Ulasan</h2>
+        <p>Anda dapat memberikan layanan RuangAspira! Teknik Komputer ulasan. Kritik & Saran akan sangat membantu kami untuk terus berkembang.</p>
+        <?php if ($this->session->userdata('nim')) : ?>
+            <a href="<?= site_url('mahasiswa/ulasan') ?>" class="login-button">BERIKAN ULASAN</a>
+        <?php else : ?>
+            <a href="<?= site_url('auth/login') ?>" class="login-button">LOGIN UNTUK MEMBERI ULASAN</a>
+        <?php endif; ?>
+    </div>
+</section>
 
     <footer class="footer">
         <div class="footer-container">
@@ -136,6 +144,14 @@
             </a>
         </div>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
     <script>
     const aboutSection = document.querySelector(".about-container");
@@ -214,6 +230,41 @@
     });
     observerlogin.observe(loginSection);
     </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // ... existing Dropify, Choices.js, MDBootstrap, and Toast initialization ...
+
+        // Initialize Owl Carousel for reviews
+        $('.review-carousel').owlCarousel({
+            loop: true, // Loop the carousel
+            margin: 20, // Space between items
+            nav: true, // Show navigation arrows (prev/next)
+            dots: true, // Show pagination dots
+            autoplay: true, // Autoplay the carousel
+            autoplayTimeout: 5000, // Autoplay interval (5 seconds)
+            autoplayHoverPause: true, // Pause on hover
+            responsive: {
+                0: { // For screens less than 576px (extra small devices)
+                    items: 1,
+                    nav: false // Maybe hide nav on very small screens
+                },
+                576: { // For screens 576px and up (small devices)
+                    items: 1.5, // You can even show partial items for a more fluid feel
+                    nav: false
+                },
+                768: { // For screens 768px and up (medium devices)
+                    items: 2
+                },
+                992: { // For screens 992px and up (large devices)
+                    items: 3 // Max 3 items per row on large screens
+                }
+            }
+        });
+
+        // ... rest of your existing JavaScript ...
+    });
+</script>
 </body>
 
 </html>

@@ -12,7 +12,7 @@ class M_Aspirasi extends CI_Model
 
     public function getAspirasiById($id_aspirasi)
     {
-        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor');
+        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor, m.prodi, m.angkatan');
         $this->db->from('aspirasi a');
         $this->db->join('aspirasi_kategori ak', 'a.kategori = ak.id');
         $this->db->join('mahasiswa m', 'a.nim = m.nim');
@@ -29,7 +29,7 @@ class M_Aspirasi extends CI_Model
 
     public function getAspirasiByStatus($status)
     {
-        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor');
+        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor, m.prodi, m.angkatan');
         $this->db->from('aspirasi a');
         $this->db->join('aspirasi_kategori ak', 'a.kategori = ak.id');
         $this->db->join('mahasiswa m', 'a.nim = m.nim');
@@ -40,7 +40,7 @@ class M_Aspirasi extends CI_Model
 
     public function getAspirasiByStatusAndTingkat($status, $tingkat)
     {
-        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor');
+        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor, m.prodi, m.angkatan');
         $this->db->from('aspirasi a');
         $this->db->join('aspirasi_kategori ak', 'a.kategori = ak.id');
         $this->db->join('mahasiswa m', 'a.nim = m.nim');
@@ -52,7 +52,7 @@ class M_Aspirasi extends CI_Model
 
     function queryTolakAspirasi()
     {
-        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor');
+        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor, m.prodi, m.angkatan');
         $this->db->from('aspirasi a');
         $this->db->join('aspirasi_kategori ak', 'a.kategori = ak.id');
         $this->db->join('mahasiswa m', 'a.nim = m.nim');
@@ -62,7 +62,7 @@ class M_Aspirasi extends CI_Model
 
     function queryVerifikasiAspirasi()
     {
-        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor');
+        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor, m.prodi, m.angkatan');
         $this->db->from('aspirasi a');
         $this->db->join('aspirasi_kategori ak', 'a.kategori = ak.id');
         $this->db->join('mahasiswa m', 'a.nim = m.nim');
@@ -72,7 +72,7 @@ class M_Aspirasi extends CI_Model
 
     function queryProsesAspirasi()
     {
-        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor');
+        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor, m.prodi, m.angkatan');
         $this->db->from('aspirasi a');
         $this->db->join('aspirasi_kategori ak', 'a.kategori = ak.id');
         $this->db->join('mahasiswa m', 'a.nim = m.nim');
@@ -82,7 +82,7 @@ class M_Aspirasi extends CI_Model
 
     function queryAspirasiSelesai()
     {
-        $this->db->select('a.id_aspirasi as p_id, ase.id_aspirasi as ps_id, a.*, ak.*, ase.*, m.nama as nama_pelapor');
+        $this->db->select('a.id_aspirasi as p_id, ase.id_aspirasi as ps_id, a.*, ak.*, ase.*, m.nama as nama_pelapor, m.prodi, m.angkatan');
         $this->db->from('aspirasi a');
         $this->db->join('aspirasi_kategori ak', 'a.kategori = ak.id');
         $this->db->join('aspirasi_selesai ase', 'a.id_aspirasi = ase.id_aspirasi');
@@ -94,7 +94,7 @@ class M_Aspirasi extends CI_Model
     function queryDetailAspirasi($id_aspirasi)
     {
         $this->db->where('a.id_aspirasi', $id_aspirasi);
-        $this->db->select('a.*, a.id_aspirasi as p_id, ak.*, m.nama as nama_pelapor'); // Removed tanggapan fields
+        $this->db->select('a.*, a.id_aspirasi as p_id, ak.*, m.nama as nama_pelapor, m.prodi, m.angkatan');
         $this->db->from('aspirasi a');
         $this->db->join('aspirasi_kategori ak', 'a.kategori = ak.id');
         $this->db->join('mahasiswa m', 'a.nim = m.nim');
@@ -105,8 +105,8 @@ class M_Aspirasi extends CI_Model
     {
         $this->db->where('a.id_aspirasi', $id_aspirasi);
         $this->db->select('
-            a.*, a.id_aspirasi as p_id, ak.*, ase.tgl_selesai, pt.*, ase.lampiran_1 as ls_1, ase.lampiran_2 as ls_2, ase.lampiran_3 as ls_3, m.nama as nama_pelapor
-        '); // Removed tanggapan fields
+            a.*, a.id_aspirasi as p_id, ak.*, ase.tgl_selesai, pt.*, ase.lampiran_1 as ls_1, ase.lampiran_2 as ls_2, ase.lampiran_3 as ls_3, m.nama as nama_pelapor, m.prodi, m.angkatan
+        ');
         $this->db->from('aspirasi a');
         $this->db->join('aspirasi_kategori ak', 'a.kategori = ak.id');
         $this->db->join('aspirasi_selesai ase', 'a.id_aspirasi = ase.id_aspirasi');
@@ -124,9 +124,10 @@ class M_Aspirasi extends CI_Model
 
     function queryAspirasiCurrentSession()
     {
-        $this->db->select('a.*, a.id_aspirasi as p_id, ak.*, ase.tgl_selesai, ase.lampiran_1 as ls_1, ase.lampiran_2 as ls_2, ase.lampiran_3 as ls_3, ad.alasan'); // Removed tanggapan fields
+        $this->db->select('a.*, a.id_aspirasi as p_id, ak.*, ase.tgl_selesai, ase.lampiran_1 as ls_1, ase.lampiran_2 as ls_2, ase.lampiran_3 as ls_3, ad.alasan, m.prodi, m.angkatan');
         $this->db->from('aspirasi a');
         $this->db->join('aspirasi_kategori ak', 'a.kategori = ak.id');
+        $this->db->join('mahasiswa m', 'a.nim = m.nim');
         $this->db->join('aspirasi_selesai ase', 'a.id_aspirasi = ase.id_aspirasi', 'LEFT');
         $this->db->join('aspirasi_ditolak ad', 'a.id_aspirasi = ad.id_aspirasi', 'LEFT');
         $this->db->where('a.nim', $this->session->userdata('nim'));
@@ -144,9 +145,7 @@ class M_Aspirasi extends CI_Model
             $config['allowed_types'] = 'jpg|jpeg|png|pdf|mp4';
             $config['max_size'] = '10240';
             $config['upload_path'] = './assets/images/laporan/selesai/';
-
             $this->load->library('upload', $config);
-
             if ($this->upload->do_upload('lampiran_1')) {
                 $lampiran_1 = $this->upload->data('file_name');
             } else {
@@ -158,9 +157,7 @@ class M_Aspirasi extends CI_Model
             $config['allowed_types'] = 'jpg|jpeg|png|pdf|mp4';
             $config['max_size'] = '10240';
             $config['upload_path'] = './assets/images/laporan/selesai/';
-
             $this->load->library('upload', $config);
-
             if ($this->upload->do_upload('lampiran_2')) {
                 $lampiran_2 = $this->upload->data('file_name');
             } else {
@@ -168,14 +165,11 @@ class M_Aspirasi extends CI_Model
                 redirect('aspirasi');
             }
         }
-
         if ($lampiran_3) {
             $config['allowed_types'] = 'jpg|jpeg|png|pdf|mp4';
             $config['max_size'] = '10240';
             $config['upload_path'] = './assets/images/laporan/selesai/';
-
             $this->load->library('upload', $config);
-
             if ($this->upload->do_upload('lampiran_3')) {
                 $lampiran_3 = $this->upload->data('file_name');
             } else {
@@ -195,11 +189,9 @@ class M_Aspirasi extends CI_Model
         ];
 
         $this->db->insert('aspirasi_selesai', $data);
-
         $this->db->set('status', 'selesai');
         $this->db->where('id_aspirasi', $id_aspirasi);
         $this->db->update('aspirasi');
-
         $this->session->set_flashdata('updateSelesai', 'Action Completed');
         redirect('aspirasi/proses');
     }
@@ -207,7 +199,6 @@ class M_Aspirasi extends CI_Model
     public function tolakAspirasi()
     {
         $id = $this->uri->segment(4);
-
         $this->db->set('status', 'tolak');
         $this->db->where('id_aspirasi', $id);
         $this->db->update('aspirasi');
@@ -218,9 +209,7 @@ class M_Aspirasi extends CI_Model
             'alasan' => $this->input->post('alasan_tolak'),
             'id_petugas' => $this->session->userdata('id_petugas')
         ];
-
         $this->db->insert('aspirasi_ditolak', $data);
-
         $this->session->set_flashdata('tolakSuccess', 'Action Completed');
         redirect('aspirasi/vnv');
     }
@@ -236,12 +225,10 @@ class M_Aspirasi extends CI_Model
     function hapus()
     {
         $id = $this->uri->segment(4);
-
         $this->db->where('id_aspirasi', $id);
         $this->db->delete('aspirasi_ditolak');
         $this->db->where('id_aspirasi', $id);
         $this->db->delete('aspirasi');
-
         $this->session->set_flashdata('deleteSuccess', 'Action Completed');
         redirect('aspirasi/ditolak');
     }

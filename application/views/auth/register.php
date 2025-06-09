@@ -33,53 +33,67 @@
                                             alt="Logo Teknik Komputer" style="width: 250px; margin-bottom: 30px" />
                                     </div>
 
-                                    <form>
-                                        <p>Create a new account</p>
+                                    <form action="<?= base_url('auth/register'); ?>" method="post">
+    <p>Create a new account</p>
 
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="text" id="nameInput" class="form-control"
-                                                placeholder="Full Name" />
-                                            <label class="form-label" for="nameInput">Full Name</label>
-                                        </div>
+    <?php if ($this->session->flashdata('message')) : ?>
+        <?= $this->session->flashdata('message'); ?>
+    <?php endif; ?>
 
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="email" id="emailInput" class="form-control"
-                                                placeholder="Email address" />
-                                            <label class="form-label" for="emailInput">Email</label>
-                                        </div>
 
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="text" id="usernameInput" class="form-control"
-                                                placeholder="Username" />
-                                            <label class="form-label" for="usernameInput">Username</label>
-                                        </div>
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" id="nim" name="nim" class="form-control" placeholder="NIM" value="<?= set_value('nim'); ?>" />
+        <label class="form-label" for="nim">NIM</label>
+        <?= form_error('nim', '<small class="text-danger ps-1">', '</small>'); ?>
+    </div>
 
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="password" id="passwordInput" class="form-control"
-                                                placeholder="Password" />
-                                            <label class="form-label" for="passwordInput">Password</label>
-                                        </div>
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" id="nama" name="nama" class="form-control" placeholder="Full Name" value="<?= set_value('nama'); ?>" />
+        <label class="form-label" for="nama">Full Name</label>
+        <?= form_error('nama', '<small class="text-danger ps-1">', '</small>'); ?>
+    </div>
+    
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" id="username" name="username" class="form-control" placeholder="Username" value="<?= set_value('username'); ?>"/>
+        <label class="form-label" for="username">Username</label>
+        <?= form_error('username', '<small class="text-danger ps-1">', '</small>'); ?>
+    </div>
 
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="password" id="confirmPasswordInput" class="form-control"
-                                                placeholder="Confirm Password" />
-                                            <label class="form-label" for="confirmPasswordInput">Confirm
-                                                Password</label>
-                                        </div>
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" id="telp" name="telp" class="form-control" placeholder="No. Telp / Ponsel" value="<?= set_value('telp'); ?>"/>
+        <label class="form-label" for="telp">No. Telp / Ponsel</label>
+        <?= form_error('telp', '<small class="text-danger ps-1">', '</small>'); ?>
+    </div>
 
-                                        <div class="text-center pt-1 mb-5 pb-1">
-                                            <button type="submit"
-                                                class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">
-                                                Register
-                                            </button>
-                                        </div>
+    <div data-mdb-input-init class="form-outline mb-4">
+        <textarea name="alamat" id="alamat" class="form-control" rows="3" placeholder="Alamat Lengkap"><?= set_value('alamat'); ?></textarea>
+        <label class="form-label" for="alamat">Alamat</label>
+        <?= form_error('alamat', '<small class="text-danger ps-1">', '</small>'); ?>
+    </div>
 
-                                        <div class="d-flex align-items-center justify-content-center pb-4">
-                                            <a class="mb-0 me-2 fw-medium text-dark">Already have an account?</a>
-                                            <a href="<?= site_url('auth/register') ?>"
-                                                class="btn btn-outline-danger">Login</a>
-                                        </div>
-                                    </form>
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="password" id="passwordInput" name="password1" class="form-control" placeholder="Password" />
+        <label class="form-label" for="passwordInput">Password</label>
+        <?= form_error('password1', '<small class="text-danger ps-1">', '</small>'); ?>
+    </div>
+
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="password" id="confirmPasswordInput" name="password2" class="form-control" placeholder="Confirm Password" />
+        <label class="form-label" for="confirmPasswordInput">Confirm Password</label>
+        <?= form_error('password2', '<small class="text-danger ps-1">', '</small>'); ?>
+    </div>
+
+    <div class="text-center pt-1 mb-5 pb-1">
+        <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">
+            Register
+        </button>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center pb-4">
+        <p class="mb-0 me-2">Already have an account?</p>
+        <a href="<?= site_url('auth/login') ?>" class="btn btn-outline-danger">Login</a>
+    </div>
+</form>
                                 </div>
                             </div>
 
