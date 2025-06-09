@@ -6,8 +6,7 @@
                     <div class="container">
                         <div class="logo">
                             <a href="<?= site_url() ?>mahasiswa"><img
-                                    src="<?= base_url() ?>assets/images/logo/no_outline_lapmas_logo.png" alt="Logo"
-                                    style="width: 80%; height: 40%;" srcset=""></a></a>
+                                    src="<?= base_url() ?>assets/landing/img/tekkom_logo.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="header-top-right">
                             <div class="dropdown">
@@ -72,7 +71,11 @@
                                 </a>
                             </li>
 
-                            </ul>
+                        </ul>
                     </div>
                 </nav>
             </header>
+
+            </div>
+    </div>
+</body>

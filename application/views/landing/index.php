@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RuangAspira Teknik Komputer</title>
+    <title>RuangAspira! Teknik Komputer</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="<?= base_url() ?>assets/landing/css/index_style.css" />
 
@@ -39,7 +39,7 @@
             <h1>Suarakan Aspirasimu di Teknik Komputer</h1>
             <p>Media penghubung antara mahasiswa dan pengelola program studi Teknik Komputer</p>
             <?php if ($this->session->userdata('nim') != null || $this->session->userdata('id_petugas') != null): ?>
-            <a href="<?= site_url('lapor') ?>" class="btn-lapor">Aspirasikan Sekarang</a>
+            <a href="<?= site_url('aspirasi') ?>" class="btn-lapor">Aspirasikan Sekarang</a>
             <?php else: ?>
             <a href="<?= site_url('auth/login') ?>" class="btn-lapor">Masuk untuk Aspirasi</a>
             <?php endif; ?>
@@ -73,9 +73,9 @@
         <div class="faq-container">
             <h2>Pertanyaan yang Sering Diajukan (FAQ)</h2>
             <div class="faq-item">
-                <button class="faq-question">Apa itu ASMA Teknik Komputer?</button>
+                <button class="faq-question">Apa itu RuangAspira! Teknik Komputer?</button>
                 <div class="faq-answer">
-                    <p>ASMA adalah platform untuk menyampaikan aspirasi, saran, dan keluhan mahasiswa Teknik Komputer
+                    <p>RuangAspira! adalah platform untuk menyampaikan aspirasi, saran, dan keluhan mahasiswa Teknik Komputer
                         secara langsung dan transparan kepada pihak pengelola prodi.</p>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                 <button class="faq-question">Bagaimana proses tindak lanjut aspirasi?</button>
                 <div class="faq-answer">
                     <p>Setiap aspirasi akan diteruskan ke pihak terkait di prodi, dibahas, lalu direspon melalui media
-                        komunikasi resmi HIMA atau ASMA.</p>
+                        komunikasi resmi HIMA atau RuangAspira!.</p>
                 </div>
             </div>
             <div class="faq-item">
@@ -127,7 +127,7 @@
     <div class="login-container">
         <h2>Beri Ulasan</h2>
         <p>Anda dapat memberikan layanan RuangAspira! Teknik Komputer ulasan. Kritik & Saran akan sangat membantu kami untuk terus berkembang.</p>
-        <?php if ($this->session->userdata('nim')) : ?>
+        <?php if ($this->session->userdata('nim') || $this->session->userdata('id_petugas')) : ?>
             <a href="<?= site_url('mahasiswa/ulasan') ?>" class="login-button">BERIKAN ULASAN</a>
         <?php else : ?>
             <a href="<?= site_url('auth/login') ?>" class="login-button">LOGIN UNTUK MEMBERI ULASAN</a>
@@ -137,7 +137,7 @@
 
     <footer class="footer">
         <div class="footer-container">
-            <p>© 2025 ASMA Teknik Komputer</p>
+            <p>© 2025 RuangAspira! Teknik Komputer</p>
             <a href="https://www.instagram.com/teknikkomputer.upi?igsh=ZThxanRmOXR2dWp4" target="_blank"
                 class="ig-link">
                 <i class="bi bi-instagram"></i> @teknikkomputer.upi

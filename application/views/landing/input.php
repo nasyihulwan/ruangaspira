@@ -99,6 +99,8 @@
                                         <input class="form-control dropify" type="file" id="lampiran_3" name="lampiran_3" data-height="100" />
                                     </div>
 
+                                    <a href="javascript:history.back()" class="btn btn-light btn-block fa-lg mb-3">Kembali</a>
+
                                     <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">
                                         Kirim Laporan
                                     </button>
