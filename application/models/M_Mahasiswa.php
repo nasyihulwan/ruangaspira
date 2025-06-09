@@ -8,20 +8,6 @@ class M_Mahasiswa extends CI_Model
         return $this->db->query('SELECT * FROM mahasiswa WHERE nim NOT LIKE "ANONYMOUS%"');
     }
 
-    function _sendTanggapanBalik()
-    {
-        $data = [
-            'tgl_tanggapan_balik' => date('Y-m-d'),
-            'tanggapan_balik' => $this->input->post('tanggapan_balik')
-        ];
-
-        // Assuming 'id_aspirasi' is the correct foreign key in the 'tanggapan' table
-        $this->db->where('id_aspirasi', $this->uri->segment(3));
-        $this->db->update('tanggapan', $data);
-        $this->session->set_flashdata('sendTanggapanBalikSuccess', 'Action Completed');
-        redirect('mahasiswa/aspirasi'); // Changed redirect to 'mahasiswa/aspirasi'
-    }
-
     function _sendUlasan()
     {
         $getLastId = $this->db->query("SELECT id_ulasan FROM ulasan_mahasiswa ORDER BY id_ulasan DESC LIMIT 1")->row_array();
