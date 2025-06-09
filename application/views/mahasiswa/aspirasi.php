@@ -56,56 +56,25 @@
                                                 <?php } else { ?>
                                                 <td style='white-space: nowrap'>
                                                     <span class="btn badge bg-success">Selesai</span>
+                                                </td>
+
+                                                <?php } ?>
+
+                                                <?php if($l->status == 'selesai') { ?>
+                                                <td style='white-space: nowrap'>
+                                                    
                                                     <button type="button" class="btn badge bg-primary"
                                                         data-bs-target="#buktiSelesai<?= $l->p_id ?>"
                                                         data-bs-toggle="modal">
                                                         Lihat Bukti Selesai
                                                     </button>
                                                 </td>
-
                                                 <?php } ?>
 
                                                 <td style='white-space: nowrap'>
-                                                    <?php if ($l->status == 'selesai') { ?>
-                                                    <button type="button" class="btn badge bg-info"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModalScrollable<?= $l->id_aspirasi ?>">
-                                                        Lihat Tanggapan Petugas
-                                                    </button>
-                                                    <button type="button" class="btn badge bg-success"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#default<?= $l->id_aspirasi ?>">
-                                                        Lihat Tanggapan Saya
-                                                    </button>
-                                                    <a href="<?= site_url() ?>laporan/aspirasi/cetakSelesai/<?= $l->id_aspirasi ?>"
-                                                        class="btn badge bg-secondary" target="_blank">
-                                                        <i class="fa fa-print" aria-hidden="true"></i>
-                                                        Print
-                                                    </a>
-                                                    <?php } ?>
-
-                                                    <?php if ($l->status == 'proses' && $this->db->get_where('tanggapan', ['id_aspirasi' => $l->p_id])->num_rows() >= 1) { ?>
-                                                    <button type="button" class="btn badge bg-info"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModalScrollable<?= $l->id_aspirasi ?>">
-                                                        Lihat Tanggapan Petugas
-                                                    </button>
-                                                    <?php if ($l->tanggapan_balik != null) { ?>
-                                                    <button type="button" class="btn badge bg-success"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#default<?= $l->id_aspirasi ?>">
-                                                        Lihat Tanggapan Saya
-                                                    </button>
-                                                    <?php } else { ?>
-                                                    <button type="button" class="btn badge bg-secondary"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#inlineForm<?= $l->id_aspirasi ?>">
-                                                        Beri Tanggapan
-                                                        Balik
-                                                    </button>
-                                                    <?php } ?>
-                                                    <?php } ?>
                                                 </td>
+
+                                                
                                             </tr>
 
                                             <!-- Modal -->
@@ -115,17 +84,10 @@
                                                 <div class="modal-dialog modal-dialog-scrollable" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalScrollableTitle">
-                                                                Judul : <?= $l->judul_aspirasi ?> - Tanggal Tanggapan :
-                                                                <?php $tanggal = date("Y-m-d", strtotime($l->tgl_tanggapan)); echo tgl_indo($tanggal, true) ?>
-                                                            </h5>
                                                             <button type="button" class="close" data-bs-dismiss="modal"
                                                                 aria-label="Close">
                                                                 <i data-feather="x"></i>
                                                             </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <b>ISI TANGGAPAN :</b> <br><?= $l->tanggapan ?>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-light-secondary"
@@ -152,11 +114,6 @@
                                                                 data-bs-dismiss="modal" aria-label="Close">
                                                                 <i data-feather="x"></i>
                                                             </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p>
-                                                                <?= $l->tanggapan_balik ?>
-                                                            </p>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-light-secondary"
@@ -185,9 +142,6 @@
                                                                 <i data-feather="x"></i>
                                                             </button>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <?= $l->tanggapan_balik ?>
-                                                        </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-light-secondary"
                                                                 data-bs-dismiss="modal">
@@ -199,48 +153,6 @@
                                                 </div>
                                             </div>
 
-                                            <!--form Modal -->
-                                            <div class="modal fade text-left" id="inlineForm<?= $l->id_aspirasi ?>"
-                                                tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                                                    role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" id="myModalLabel33">
-                                                                Form Tanggapan Balik
-                                                            </h4>
-                                                            <button type="button" class="close" data-bs-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <i data-feather="x"></i>
-                                                            </button>
-                                                        </div>
-                                                        <form
-                                                            action="<?= site_url() ?>mahasiswa/tanggapanBalik/<?= $l->id_aspirasi ?> ?>"
-                                                            method="POST">
-                                                            <div class="modal-body">
-                                                                <label>Tanggapan</label>
-                                                                <div class="form-group">
-                                                                    <textarea name="tanggapan_balik"
-                                                                        class="form-control" cols="30"
-                                                                        rows="10"></textarea>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-light-secondary"
-                                                                    data-bs-dismiss="modal">
-                                                                    <i class="bx bx-x d-block d-sm-none"></i>
-                                                                    <span class="d-none d-sm-block">Close</span>
-                                                                </button>
-                                                                <button type="submit" class="btn btn-primary ml-1"
-                                                                    data-bs-dismiss="modal">
-                                                                    <span class="d-none d-sm-block">Submit</span>
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                             <div class="modal fade" id="galleryModal<?= $l->p_id ?>" tabindex="-1"
                                                 role="dialog" aria-labelledby="galleryModalTitle" aria-hidden="true">
