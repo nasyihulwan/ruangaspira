@@ -13,6 +13,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="<?= base_url() ?>assets/landing/css/register_style.css" />
+        <link rel="shortcut icon" href="<?= base_url() ?>assets/landing/img/tekkom_logo.png" type="image/png">
+
 </head>
 
 <body>

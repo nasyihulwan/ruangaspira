@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
 
     <link rel="stylesheet" href="<?= base_url() ?>assets/landing/css/input_style.css" />
+        <link rel="shortcut icon" href="<?= base_url() ?>assets/landing/img/tekkom_logo.png" type="image/png">
+
 
     <style>
     .toast-container {

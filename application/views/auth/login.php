@@ -17,6 +17,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/landing/css/login_style.css" />
+        <link rel="shortcut icon" href="<?= base_url() ?>assets/landing/img/tekkom_logo.png" type="image/png">
+
 </head>
 
 <body>

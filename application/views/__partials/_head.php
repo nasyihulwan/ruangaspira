@@ -31,7 +31,7 @@
         href="<?= base_url() ?>assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/pages/datatables.css">
 
-    <link rel="shortcut icon" href="<?= base_url() ?>assets/images/logo/lapmas_logo.png" type="image/png">
+    <link rel="shortcut icon" href="<?= base_url() ?>assets/landing/img/tekkom_logo.png" type="image/png">
 
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/shared/iconly.css">
 

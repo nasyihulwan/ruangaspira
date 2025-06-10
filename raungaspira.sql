@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2025 at 06:45 PM
+-- Generation Time: Jun 10, 2025 at 08:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -56,9 +56,9 @@ CREATE TABLE `aspirasi` (
   `judul_aspirasi` varchar(255) NOT NULL,
   `isi_laporan` text NOT NULL,
   `tempat_kejadian` varchar(255) NOT NULL,
-  `lampiran_1` varchar(255) NOT NULL,
-  `lampiran_2` varchar(255) NOT NULL,
-  `lampiran_3` varchar(255) NOT NULL,
+  `lampiran_1` varchar(255) DEFAULT NULL,
+  `lampiran_2` varchar(255) DEFAULT NULL,
+  `lampiran_3` varchar(255) DEFAULT NULL,
   `kategori` varchar(255) NOT NULL,
   `tgl_disetujui` date NOT NULL,
   `tgl_ditolak` date DEFAULT NULL,
@@ -71,10 +71,8 @@ CREATE TABLE `aspirasi` (
 --
 
 INSERT INTO `aspirasi` (`id_aspirasi`, `tgl_aspirasi`, `tgl_kejadian`, `nim`, `judul_aspirasi`, `isi_laporan`, `tempat_kejadian`, `lampiran_1`, `lampiran_2`, `lampiran_3`, `kategori`, `tgl_disetujui`, `tgl_ditolak`, `status`, `tingkat`) VALUES
-(17256, '2023-03-16', '2023-03-01', '3273241103050003', 'Jalan Berlubang', 'Jalan Berlubang Menggangu, Takutnya Ada Yang Celaka', 'KAMBOJA', 'jalan_berlubang.jpeg', '', '', 'KAT10001', '2025-06-08', NULL, 'selesai', 'prodi'),
-(28890, '2023-03-16', '2023-03-01', '3273241103050003', 'Pencurian Di Lab', 'Pencurian barang berharga, tolong segera tangkap', 'Bojong Awi Kaler, No. 116', 'pencuri.jpeg', '', '', 'KAT10000', '2025-06-10', NULL, 'proses', 'hima'),
-(50243, '2025-06-10', '2025-06-10', '232323', 'Sampah', 'Banyak sampah berserakan', 'Gedung Baru', '', '', '', 'KAT27291', '0000-00-00', NULL, '0', '0'),
-(77903, '2025-06-06', NULL, '3273241103050003', 'Departemen MIKAT', 'Tolong adakan playkom cewe', '-', '', '', '', 'KAT10001', '2025-06-06', NULL, 'proses', 'hima');
+(75847, '2025-06-10', '2025-06-11', '3273241103050003', 'Pencurian Di Lab', 'ASD', 'ASD', NULL, NULL, NULL, 'KAT10001', '2025-06-10', NULL, 'selesai', 'hima'),
+(88131, '2025-06-10', '0000-00-00', '3273241103050003', 'Sampah', 'asd', 'asd', NULL, NULL, NULL, 'KAT10001', '0000-00-00', NULL, '0', '0');
 
 -- --------------------------------------------------------
 
@@ -88,6 +86,13 @@ CREATE TABLE `aspirasi_ditolak` (
   `alasan` varchar(50) NOT NULL,
   `id_petugas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `aspirasi_ditolak`
+--
+
+INSERT INTO `aspirasi_ditolak` (`id_tolak`, `id_aspirasi`, `alasan`, `id_petugas`) VALUES
+(95529, 12801, 'asd', 1);
 
 -- --------------------------------------------------------
 
@@ -132,7 +137,8 @@ CREATE TABLE `aspirasi_selesai` (
 --
 
 INSERT INTO `aspirasi_selesai` (`id_selesai`, `id_aspirasi`, `tgl_selesai`, `lampiran_1`, `lampiran_2`, `lampiran_3`, `id_petugas`) VALUES
-(82028, 17256, '2023-03-16', 'perbaikan_jalan.jpg', '', '', 1);
+(26801, 75847, '2025-06-10', '7b4743e567d722e2f6fa9e700c429ef7.png', '', '', 1),
+(92875, 75847, '2025-06-10', 'f69f5aea725590442df0a9378bc5a47a.png', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -162,10 +168,11 @@ INSERT INTO `mahasiswa` (`nim`, `nama`, `email`, `prodi`, `angkatan`, `username`
 ('110305', 'Nasul Satoru', 'nasuldummy@gmail.com', 'Teknik Komputer', '2021', 'satoru', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '08977777', 'BANDUNG KIDUL'),
 ('1298674189', 'Jotaro', 'jotarodummy@gmail.com', 'Teknik Komputer', '2023', 'jojo', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '1241415', 'ARCAMANIK'),
 ('2301425', 'Subhan Alief Putra', '', 'Teknik Komputer', '2023', 'subhanalief', '$2y$10$vK0GR4FaskFrJSfIFENOpOETIEQKG2tqrcWoExr/k3nUJWhnuGr/K', 'active', '08912345678', 'Pilar Biru'),
+('2307027', 'Muhammad Nasyih', 'nasyihulwan@upi.edu', 'Teknik Komputer', '2020', 'nas121', '$2y$10$CpYYPyPgcT45y0diMAWFnuHhVmSpD13t3PH82A6Dc1nzAz2JwW3bG', 'active', '089604129300', 'KAMOBJA AWII'),
 ('232323', 'Subhan Alief', '', 'Teknik Komputer', '2020', 'hanalf', '$2y$10$R9Ljmnhm0ctQ2/NERY69ROeF3L3D9ukbgcGMick6ngpVQxrG7Xkbq', 'active', '081081081081', 'Bandunggggg'),
-('3273241103050003', 'Sain', 'nasyihulwan@upi.edu', 'Teknik Komputer', '2022', 'sain', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '089123', 'ANTAPANI'),
+('3273241103050003', 'Sain', 'muhnasyihulwan@gmail.com', 'Teknik Komputer', '2022', 'sain', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '089123', 'ANTAPANI'),
 ('3273241805140005', 'Nasyih Wawan', 'naw@gmail.com', 'Teknik Komputer', '2020', 'anasbuek', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '123', 'BOJONG AWI'),
-('91857189', 'Akainu', 'akainu@dummy@gmail.com', 'Teknik Komputer', '2022', 'akainu', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '1214551', 'CICADAS');
+('91857189', 'Akainu', 'akainudummy@gmail.com', 'Teknik Komputer', '2022', 'akainu', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '1214551', 'CICADAS');
 
 -- --------------------------------------------------------
 
