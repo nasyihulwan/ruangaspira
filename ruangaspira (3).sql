@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2025 at 11:15 PM
+-- Generation Time: Jun 10, 2025 at 06:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -24,6 +24,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `angkatan`
+--
+
+CREATE TABLE `angkatan` (
+  `tahun` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `angkatan`
+--
+
+INSERT INTO `angkatan` (`tahun`) VALUES
+(2020),
+(2021),
+(2022),
+(2023),
+(2024);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `aspirasi`
 --
 
@@ -40,6 +61,7 @@ CREATE TABLE `aspirasi` (
   `lampiran_3` varchar(255) NOT NULL,
   `kategori` varchar(255) NOT NULL,
   `tgl_disetujui` date NOT NULL,
+  `tgl_ditolak` date DEFAULT NULL,
   `status` enum('0','tolak','proses','selesai') NOT NULL,
   `tingkat` enum('0','hima','prodi') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -48,11 +70,11 @@ CREATE TABLE `aspirasi` (
 -- Dumping data for table `aspirasi`
 --
 
-INSERT INTO `aspirasi` (`id_aspirasi`, `tgl_aspirasi`, `tgl_kejadian`, `nim`, `judul_aspirasi`, `isi_laporan`, `tempat_kejadian`, `lampiran_1`, `lampiran_2`, `lampiran_3`, `kategori`, `tgl_disetujui`, `status`, `tingkat`) VALUES
-(17256, '2023-03-16', '2023-03-01', '3273241103050003', 'Jalan Berlubang', 'Jalan Berlubang Menggangu, Takutnya Ada Yang Celaka', 'KAMBOJA', 'jalan_berlubang.jpeg', '', '', 'KAT10001', '2025-06-08', 'selesai', 'prodi'),
-(28890, '2023-03-16', '2023-03-01', '3273241103050003', 'Pencurian Di Rumah', 'Pencurian barang berharga, tolong segera tangkap', 'Bojong Awi Kaler, No. 116', 'pencuri.jpeg', '', '', 'KAT10000', '0000-00-00', '0', '0'),
-(77903, '2025-06-06', NULL, '3273241103050003', 'Departemen MIKAT', 'Tolong adakan playkom cewe', '-', '', '', '', 'KAT10001', '2025-06-06', 'proses', 'hima'),
-(78887, '2025-06-06', '2025-06-07', '3273241103050003', 'Fasilitas rusak', 'lift tidak bisa digunakan', 'Gedung Biru', '', '', '', 'KAT10001', '2025-06-06', '0', '0');
+INSERT INTO `aspirasi` (`id_aspirasi`, `tgl_aspirasi`, `tgl_kejadian`, `nim`, `judul_aspirasi`, `isi_laporan`, `tempat_kejadian`, `lampiran_1`, `lampiran_2`, `lampiran_3`, `kategori`, `tgl_disetujui`, `tgl_ditolak`, `status`, `tingkat`) VALUES
+(17256, '2023-03-16', '2023-03-01', '3273241103050003', 'Jalan Berlubang', 'Jalan Berlubang Menggangu, Takutnya Ada Yang Celaka', 'KAMBOJA', 'jalan_berlubang.jpeg', '', '', 'KAT10001', '2025-06-08', NULL, 'selesai', 'prodi'),
+(28890, '2023-03-16', '2023-03-01', '3273241103050003', 'Pencurian Di Lab', 'Pencurian barang berharga, tolong segera tangkap', 'Bojong Awi Kaler, No. 116', 'pencuri.jpeg', '', '', 'KAT10000', '2025-06-10', NULL, 'proses', 'hima'),
+(50243, '2025-06-10', '2025-06-10', '232323', 'Sampah', 'Banyak sampah berserakan', 'Gedung Baru', '', '', '', 'KAT27291', '0000-00-00', NULL, '0', '0'),
+(77903, '2025-06-06', NULL, '3273241103050003', 'Departemen MIKAT', 'Tolong adakan playkom cewe', '-', '', '', '', 'KAT10001', '2025-06-06', NULL, 'proses', 'hima');
 
 -- --------------------------------------------------------
 
@@ -121,6 +143,7 @@ INSERT INTO `aspirasi_selesai` (`id_selesai`, `id_aspirasi`, `tgl_selesai`, `lam
 CREATE TABLE `mahasiswa` (
   `nim` char(16) NOT NULL,
   `nama` varchar(35) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `prodi` enum('Teknik Komputer') NOT NULL,
   `angkatan` enum('2020','2021','2022','2023','2024') NOT NULL,
   `username` varchar(25) NOT NULL,
@@ -134,14 +157,15 @@ CREATE TABLE `mahasiswa` (
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`nim`, `nama`, `prodi`, `angkatan`, `username`, `password`, `status`, `telp`, `alamat`) VALUES
-('098765', 'Opet', 'Teknik Komputer', '2020', 'opet', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'deleted', '081321314', 'KAMBOJA'),
-('110305', 'Nasul Satoru', 'Teknik Komputer', '2021', 'satoru', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '08977777', 'BANDUNG KIDUL'),
-('1298674189', 'Jotaro', 'Teknik Komputer', '2023', 'jojo', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '1241415', 'ARCAMANIK'),
-('2301425', 'Subhan Alief Putra', 'Teknik Komputer', '2023', 'subhanalief', '$2y$10$vK0GR4FaskFrJSfIFENOpOETIEQKG2tqrcWoExr/k3nUJWhnuGr/K', 'active', '08912345678', 'Pilar Biru'),
-('3273241103050003', 'Sain', 'Teknik Komputer', '2022', 'sain', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '089123', 'ANTAPANI'),
-('3273241805140005', 'Nasyih Wawan', 'Teknik Komputer', '2020', 'anasbuek', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '123', 'BOJONG AWI'),
-('91857189', 'Akainu', 'Teknik Komputer', '2022', 'akainu', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '1214551', 'CICADAS');
+INSERT INTO `mahasiswa` (`nim`, `nama`, `email`, `prodi`, `angkatan`, `username`, `password`, `status`, `telp`, `alamat`) VALUES
+('098765', 'Opet', 'opetdummy@gmail.com', 'Teknik Komputer', '2020', 'opet', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'deleted', '081321314', 'KAMBOJA'),
+('110305', 'Nasul Satoru', 'nasuldummy@gmail.com', 'Teknik Komputer', '2021', 'satoru', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '08977777', 'BANDUNG KIDUL'),
+('1298674189', 'Jotaro', 'jotarodummy@gmail.com', 'Teknik Komputer', '2023', 'jojo', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '1241415', 'ARCAMANIK'),
+('2301425', 'Subhan Alief Putra', '', 'Teknik Komputer', '2023', 'subhanalief', '$2y$10$vK0GR4FaskFrJSfIFENOpOETIEQKG2tqrcWoExr/k3nUJWhnuGr/K', 'active', '08912345678', 'Pilar Biru'),
+('232323', 'Subhan Alief', '', 'Teknik Komputer', '2020', 'hanalf', '$2y$10$R9Ljmnhm0ctQ2/NERY69ROeF3L3D9ukbgcGMick6ngpVQxrG7Xkbq', 'active', '081081081081', 'Bandunggggg'),
+('3273241103050003', 'Sain', 'nasyihulwan@upi.edu', 'Teknik Komputer', '2022', 'sain', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '089123', 'ANTAPANI'),
+('3273241805140005', 'Nasyih Wawan', 'naw@gmail.com', 'Teknik Komputer', '2020', 'anasbuek', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '123', 'BOJONG AWI'),
+('91857189', 'Akainu', 'akainu@dummy@gmail.com', 'Teknik Komputer', '2022', 'akainu', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', 'active', '1214551', 'CICADAS');
 
 -- --------------------------------------------------------
 
@@ -155,7 +179,7 @@ CREATE TABLE `petugas` (
   `username` varchar(25) NOT NULL,
   `password` varchar(255) NOT NULL,
   `telp` varchar(13) NOT NULL,
-  `level` enum('master admin','admin','petugas','prodi_tekkom','hima_tekkom') NOT NULL,
+  `level` enum('master_admin','prodi_tekkom','hima_tekkom') NOT NULL,
   `status` enum('active','deleted') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -164,9 +188,28 @@ CREATE TABLE `petugas` (
 --
 
 INSERT INTO `petugas` (`id_petugas`, `nama_petugas`, `username`, `password`, `telp`, `level`, `status`) VALUES
-(1, 'Nasyih', 'master_admin', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', '08912345678', 'master admin', 'active'),
+(0, 'asd', 'asd', '$2y$10$S102Ry9sRtEc2rN.aqLKVui7Ufa43Zbv1FRET2awniQB6A8yl7Nea', '123', 'hima_tekkom', 'active'),
+(1, 'Nasyih', 'master_admin', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', '08912345678', 'master_admin', 'active'),
 (2, 'HIMA TEKKOM', 'hima_tekkom', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', '08932112421', 'hima_tekkom', 'active'),
 (39060, 'PRODI TEKKOM', 'prodi_tekkom', '$2y$10$PUjEwg2/rmLQ3CmXHcbXauCQLBVWf3MTe.w27XpxP7nHqgeoaJyVS', '12341234', 'prodi_tekkom', 'active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prodi`
+--
+
+CREATE TABLE `prodi` (
+  `id_prodi` varchar(15) NOT NULL,
+  `nama_prodi` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `prodi`
+--
+
+INSERT INTO `prodi` (`id_prodi`, `nama_prodi`) VALUES
+('G515', 'Teknik Komputer');
 
 -- --------------------------------------------------------
 
@@ -239,6 +282,12 @@ ALTER TABLE `mahasiswa`
 --
 ALTER TABLE `petugas`
   ADD PRIMARY KEY (`id_petugas`);
+
+--
+-- Indexes for table `prodi`
+--
+ALTER TABLE `prodi`
+  ADD PRIMARY KEY (`id_prodi`);
 
 --
 -- Indexes for table `ulasan_mahasiswa`
