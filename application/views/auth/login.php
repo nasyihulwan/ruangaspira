@@ -44,7 +44,7 @@
 
                                         <div data-mdb-input-init class="form-outline mb-4">
                                             <input type="text" id="form2Example11" class="form-control"
-                                                placeholder="Phone number or email address" name="username"
+                                                name="username"
                                                 value="<?= set_value('username') ?>" />
                                             <label class="form-label" for="form2Example11">Username</label>
                                             <?= form_error('username', '<small class="text-danger">', '</small>') ?>

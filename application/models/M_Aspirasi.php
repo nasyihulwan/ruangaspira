@@ -232,4 +232,9 @@ class M_Aspirasi extends CI_Model
         $this->session->set_flashdata('deleteSuccess', 'Action Completed');
         redirect('aspirasi/ditolak');
     }
+
+    public function simpanAspirasi($data)
+{
+    return $this->db->insert('aspirasi', $data);
+}
 }

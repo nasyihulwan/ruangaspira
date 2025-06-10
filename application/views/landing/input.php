@@ -71,10 +71,10 @@
 
                                     <div class="mb-4">
                                         <label class="form-label" for="aspirasiKategori">Kategori Aspirasi</label>
-                                        <select class="form-control" id="aspirasiKategori" name="aspirasi_kategori">
+                                        <select class="form-control" id="aspirasiKategori" name="kategori">
                                             <option value="">Pilih Kategori</option>
                                             <?php foreach ($kategori_aspirasi as $kategori) : ?>
-                                                <option value="<?= $kategori->id ?>" <?= set_select('aspirasi_kategori', $kategori->nama_kategori); ?>>
+                                                <option value="<?= $kategori->id ?>" <?= set_select('kategori', $kategori->nama_kategori); ?>>
                                                     <?= $kategori->nama_kategori ?>
                                                 </option>
                                             <?php endforeach; ?>

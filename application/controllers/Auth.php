@@ -38,31 +38,35 @@ class Auth extends CI_Controller
         }
     }
 
-    public function register()
-    {
-        if ($this->session->userdata('nim') != null) {
-            redirect('aspirasi');
-        } else if ($this->session->userdata('id_petugas') != null) {
-            redirect('dashboard');
-        }
-
-        $this->form_validation->set_rules('nim', 'NIM', 'numeric|required|trim|is_unique[mahasiswa.nim]', [
-            'is_unique' => 'NIM already exists!'
-        ]);
-        $this->form_validation->set_rules('username', 'Username', 'required|trim');
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-        $this->form_validation->set_rules('telp', 'Telp / Nomor Ponsel', 'numeric');
-        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]');
-        $this->form_validation->set_rules('password2', 'Password', 'required|trim|min_length[3]|matches[password1]');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required|min_length[10]');
-
-        if ($this->form_validation->run() == false) {
-            $this->load->view('__partials/_head');
-            $this->load->view('auth/register');
-        } else {
-            $this->M_Auth->_register();
-        }
+public function register()
+{
+    if ($this->session->userdata('nim') != null) {
+        redirect('aspirasi');
+    } else if ($this->session->userdata('id_petugas') != null) {
+        redirect('dashboard');
     }
+
+    $this->form_validation->set_rules('nim', 'NIM', 'numeric|required|trim|is_unique[mahasiswa.nim]', [
+        'is_unique' => 'NIM already exists!'
+    ]);
+    $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[mahasiswa.email]', [
+        'valid_email' => 'Please enter a valid email address.',
+        'is_unique' => 'This email is already registered!'
+    ]);
+    $this->form_validation->set_rules('username', 'Username', 'required|trim');
+    $this->form_validation->set_rules('telp', 'Telp / Nomor Ponsel', 'numeric');
+    $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]');
+    $this->form_validation->set_rules('password2', 'Password', 'required|trim|min_length[3]|matches[password1]');
+    $this->form_validation->set_rules('alamat', 'Alamat', 'required|min_length[10]');
+
+    if ($this->form_validation->run() == false) {
+        $this->load->view('__partials/_head'); // Make sure this path is correct for your partials
+        $this->load->view('auth/register');
+    } else {
+        $this->M_Auth->_register();
+    }
+}
 
     public function m_logout()
     {

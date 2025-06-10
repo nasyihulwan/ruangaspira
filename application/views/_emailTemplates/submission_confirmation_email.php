@@ -110,12 +110,28 @@
         </div>
         <div class="content">
             <p>Yth. Mahasiswa,</p>
-            <p>Terima kasih. Laporan aspirasi Anda telah berhasil kami terima dan akan segera kami proses. Berikut adalah detail laporan Anda:</p>
-            <hr>
-            <p><strong>Judul Laporan:</strong><br><?= htmlspecialchars($judulAspirasi) ?></p>
-            <p><strong>Status:</strong><br>Laporan Anda berhasil <strong><?= htmlspecialchars($tipeAksi) ?></strong> dan saat ini sedang menunggu verifikasi dari petugas.</p>
-            <hr>
+            <p>Terima kasih. Laporan aspirasi Anda telah berhasil kami terima. Berikut adalah detail laporan Anda:</p>
+
+            <div class="status-box">
+                <p><strong>Judul Aspirasi:</strong> <?= htmlspecialchars($judulAspirasi) ?></p>
+                <p><strong>Status Saat Ini:</strong>
+                    <?php
+                        switch ($tipeAksi) {
+                            case 'diterima': echo '<span class="badge-success">Diterima</span>'; break;
+                            case 'diajukan': echo '<span class="badge-warning">Menunggu Verifikasi</span>'; break;
+                            default: echo htmlspecialchars(ucfirst($tipeAksi)); break;
+                        }
+                    ?>
+                </p>
+                <p>Laporan Anda sedang menunggu verifikasi dari petugas kami.</p>
+            </div>
+
             <p>Anda dapat memantau status laporan Anda kapan saja melalui dasbor mahasiswa.</p>
+            
+            <div class="button-container">
+                <a href="<?= base_url('mahasiswa/aspirasi') ?>" class="button">Lihat Aspirasi Saya</a>
+            </div>
+
             <p>Hormat kami,<br>Tim RuangAspira! Teknik Komputer</p>
         </div>
         <div class="footer">

@@ -53,7 +53,12 @@ class M_User extends CI_Model
         return ['master_admin', 'hima_tekkom', 'prodi_tekkom'];
     }
 
-        function getMahasiswaCurrentSession()
+    public function getMahasiswaByNim($nim)
+{
+    return $this->db->get_where('mahasiswa', ['nim' => $nim])->row();
+}
+
+    function getMahasiswaCurrentSession()
     {
         return $this->db->get_where('mahasiswa', ['nim' => $this->session->userdata('nim')])->row_array();
     }
