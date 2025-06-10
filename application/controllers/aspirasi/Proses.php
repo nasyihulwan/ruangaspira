@@ -8,6 +8,7 @@ class Proses extends CI_Controller
         parent::__construct();
         $this->load->model('M_Aspirasi');
         $this->load->helper('form');
+        $this->load->helper('email');
         $this->load->library('session');
     }
 
@@ -43,86 +44,61 @@ class Proses extends CI_Controller
         $this->load->view('__partials/_js');
     }
 
-     public function updateSelesai()
+    public function updateSelesai()
     {
         $this->load->library('upload');
-
         $id_aspirasi = $this->input->post('id_aspirasi');
 
-        $config['upload_path'] = './assets/images/laporan/aspirasi/';
-        $config['allowed_types'] = 'jpg|jpeg|png|pdf|mp4';
-        $config['max_size'] = 20480;
-
-        if (!is_dir($config['upload_path'])) {
-            mkdir($config['upload_path'], 0777, TRUE);
-        }
-
-        $lampiran_data = [];
-
-        if (!empty($_FILES['lampiran_1']['name'])) {
-            $config['file_name'] = 'lampiran_selesai_1_' . $id_aspirasi . '_' . time();
-            $this->upload->initialize($config);
-            if ($this->upload->do_upload('lampiran_1')) {
-                $lampiran_data['lampiran_selesai_1'] = $this->upload->data('file_name');
-            } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
-                redirect('aspirasi/proses/detail/' . $id_aspirasi);
-                return;
-            }
-        }
-
-        if (!empty($_FILES['lampiran_2']['name'])) {
-            $config['file_name'] = 'lampiran_selesai_2_' . $id_aspirasi . '_' . time();
-            $this->upload->initialize($config);
-            if ($this->upload->do_upload('lampiran_2')) {
-                $lampiran_data['lampiran_selesai_2'] = $this->upload->data('file_name');
-            }
-        }
-
-        if (!empty($_FILES['lampiran_3']['name'])) {
-            $config['file_name'] = 'lampiran_selesai_3_' . $id_aspirasi . '_' . time();
-            $this->upload->initialize($config);
-            if ($this->upload->do_upload('lampiran_3')) {
-                $lampiran_data['lampiran_selesai_3'] = $this->upload->data('file_name');
-            }
-        }
-
-        $data_update = [
-            'status' => 'selesai',
-            'tgl_selesai' => date('Y-m-d H:i:s')
-        ];
-        $data_update = array_merge($data_update, $lampiran_data);
-
-        if ($this->M_Aspirasi->updateAspirasi($id_aspirasi, $data_update)) {
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Aspirasi berhasil diselesaikan!</div>');
-        } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal menyelesaikan aspirasi.</div>');
-        }
-
-        redirect('aspirasi/proses/detail/' . $id_aspirasi);
-    }
-
-    public function updateBatal($p_id)
-    {
-        $queryAspirasi = $this->M_Aspirasi->getAspirasiById($p_id);
-
-        if ($queryAspirasi) {
-            $id_aspirasi_to_update = $queryAspirasi['p_id'];
-
-            $data_update = [
-                'status' => 'ditolak',
-                'tgl_batal' => date('Y-m-d H:i:s')
-            ];
-
-            if ($this->M_Aspirasi->updateAspirasi($id_aspirasi_to_update, $data_update)) {
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Aspirasi berhasil dibatalkan.</div>');
-            } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal membatalkan aspirasi.</div>');
-            }
-        } else {
+        // Ambil data aspirasi untuk mendapatkan info email, judul, dll.
+        $aspirasi = $this->M_Aspirasi->getAspirasiById($id_aspirasi);
+        if (!$aspirasi) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Aspirasi tidak ditemukan.</div>');
+            redirect('aspirasi/proses');
+            return;
         }
 
-        redirect('aspirasi/proses/detail/' . $p_id);
+        // Proses Upload Lampiran Bukti Selesai
+       $upload_path = FCPATH . 'assets/images/laporan/selesai/';
+        if (!is_dir($upload_path)) {
+            mkdir($upload_path, 0777, TRUE); // TRUE for recursive creation
+        }
+        $config['upload_path'] = $upload_path;
+        $config['allowed_types'] = 'jpg|jpeg|png|pdf|mp4';
+        $config['max_size'] = 10240; // 10MB
+        $config['encrypt_name'] = TRUE;
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        
+        $lampiran_selesai = [];
+        $file_fields = ['lampiran_1', 'lampiran_2', 'lampiran_3'];
+        foreach ($file_fields as $field) {
+            if (!empty($_FILES[$field]['name'])) {
+                if ($this->upload->do_upload($field)) {
+                    $lampiran_selesai[$field] = $this->upload->data('file_name');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+                    redirect('aspirasi/proses/detail/' . $id_aspirasi);
+                    return;
+                }
+            }
+        }
+        
+        
+        $this->M_Aspirasi->_selesai($id_aspirasi);
+            // Panggil helper untuk kirim email notifikasi
+            $email_sent = send_status_update_email(
+                $aspirasi['email_mahasiswa'],
+                $aspirasi['judul'],
+                'proses', // status lama
+                'selesai', // status baru
+            );
+
+            if($email_sent){
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Aspirasi berhasil diselesaikan dan notifikasi email telah dikirim!</div>');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Aspirasi berhasil diselesaikan, namun notifikasi email gagal dikirim.</div>');
+            }
+
+        redirect('aspirasi/selesai/');
     }
 }

@@ -12,7 +12,7 @@ class M_Aspirasi extends CI_Model
 
     public function getAspirasiById($id_aspirasi)
     {
-        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor, m.prodi, m.angkatan');
+        $this->db->select('a.*, ak.nama_kategori, m.nama as nama_pelapor, m.prodi, m.angkatan, m.email as email_mahasiswa');
         $this->db->from('aspirasi a');
         $this->db->join('aspirasi_kategori ak', 'a.kategori = ak.id');
         $this->db->join('mahasiswa m', 'a.nim = m.nim');
@@ -134,9 +134,8 @@ class M_Aspirasi extends CI_Model
         return $this->db->get()->result();
     }
 
-    function _selesai()
+    function _selesai($id_aspirasi)
     {
-        $id_aspirasi = $this->input->post('id_aspirasi');
         $lampiran_1 = $_FILES['lampiran_1']['name'];
         $lampiran_2 = $_FILES['lampiran_2']['name'];
         $lampiran_3 = $_FILES['lampiran_3']['name'];
@@ -192,8 +191,6 @@ class M_Aspirasi extends CI_Model
         $this->db->set('status', 'selesai');
         $this->db->where('id_aspirasi', $id_aspirasi);
         $this->db->update('aspirasi');
-        $this->session->set_flashdata('updateSelesai', 'Action Completed');
-        redirect('aspirasi/proses');
     }
 
     public function tolakAspirasi()
@@ -211,7 +208,6 @@ class M_Aspirasi extends CI_Model
         ];
         $this->db->insert('aspirasi_ditolak', $data);
         $this->session->set_flashdata('tolakSuccess', 'Action Completed');
-        redirect('aspirasi/ditolak');
     }
 
     function getAspirasiKategori()

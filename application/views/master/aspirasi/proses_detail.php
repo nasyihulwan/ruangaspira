@@ -10,8 +10,7 @@
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last ">
                     <h3><?= $title ?></h3>
-                    <p class="text-subtitle text-muted"><?= $subtitle ?>
-                    </p>
+                    <p class="text-subtitle text-muted"><?= $subtitle ?></p>
                 </div>
                 <?php $this->load->view("__partials/_breadcrumb.php") ?>
             </div>
@@ -48,16 +47,16 @@
                                             <div class="form-group">
                                                 <label for="tgl-aspirasi-column">Tanggal Aspirasi</label>
                                                 <input type="text" name="tgl_aspirasi" class="form-control" value="<?php
-                                            $tanggal = date("Y-m-d", strtotime($queryAspirasi['tgl_aspirasi']));
-                                            echo tgl_indo($tanggal, true) ?>" disabled>
+                                                $tanggal = date("Y-m-d", strtotime($queryAspirasi['tgl_aspirasi']));
+                                                echo tgl_indo($tanggal, true) ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12">
                                             <div class="form-group">
                                                 <label for="tgl-kejadian-column">Tanggal Kejadian</label>
                                                 <input type="text" name="tgl_kejadian" class="form-control" value="<?php
-                                            $tanggal = date("Y-m-d", strtotime($queryAspirasi['tgl_kejadian']));
-                                            echo tgl_indo($tanggal, true) ?>" disabled>
+                                                $tanggal = date("Y-m-d", strtotime($queryAspirasi['tgl_kejadian']));
+                                                echo tgl_indo($tanggal, true) ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12">
@@ -107,25 +106,21 @@
                                         </div>
 
                                         <div class="col-12 d-flex justify-content-end">
-                                            <?php if ($queryAspirasi['status'] !== 'selesai' && $queryAspirasi['status'] !== 'dibatalkan' && !($this->session->userdata('level') === 'prodi_tekkom')) { ?>
+                                            <?php if ($queryAspirasi['status'] !== 'selesai' && $queryAspirasi['status'] !== 'dibatalkan') { ?>
                                             <div class="col-md-12 col-12 d-flex justify-content-between">
+                                                <?php if (!($this->session->userdata('level') === 'prodi_tekkom')) { ?>
                                                 <button type="button" class="btn btn-primary me-1 mb-1"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#xlarge<?= $queryAspirasi['p_id'] ?>">
                                                     SETUJUI (SELESAI)
                                                 </button>
-
-                                                <form method="POST"
-                                                    action="<?= site_url('aspirasi/proses/updateBatal/') ?><?= $queryAspirasi['p_id'] ?>">
-                                                    <input type="hidden" name="id_aspirasi"
-                                                        value="<?= $queryAspirasi['id_aspirasi'] ?>">
-                                                    <button type="submit" class="btn btn-danger me-1 mb-1"
-                                                        onclick="return confirm('Apakah Anda yakin ingin membatalkan aspirasi ini? Proses ini tidak dapat dibatalkan.')">
-                                                        BATALKAN
-                                                    </button>
-                                                </form>
+                                                <button type="button" class="btn btn-danger me-1 mb-1"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#default">
+                                                    TOLAK
+                                                </button>
+                                                <?php } ?>
                                             </div>
-                                            <?php } else if ($queryAspirasi['status'] !== 'selesai' && $queryAspirasi['status'] !== 'dibatalkan' && ($this->session->userdata('level') === 'prodi_tekkom')) { ?>
                                             <?php } else { ?>
                                             <button class="btn btn-secondary me-1 mb-1" disabled>
                                                 ASPIRASI <?= strtoupper($queryAspirasi['status']) ?>
@@ -140,7 +135,6 @@
                 </div>
             </div>
         </section>
-
 
         <div class="modal fade" id="exampleModalScrollable<?= $queryAspirasi['p_id'] ?>" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -183,10 +177,9 @@
                     </div>
                     <div class="modal-body">
                         <div class="alert alert-secondary" role="alert">
-
                             <?php
-                    $ekstensi_1 = substr($queryAspirasi['lampiran_1'], -3);
-                    if ($ekstensi_1 == 'mp4') { ?>
+                            $ekstensi_1 = substr($queryAspirasi['lampiran_1'], -3);
+                            if ($ekstensi_1 == 'mp4') { ?>
                             Lampiran 1 - <b><?= $queryAspirasi['lampiran_1'] ?></b> - <a
                                 href="<?= base_url() ?>assets/images/laporan/aspirasi/<?= $queryAspirasi['nim'] ?>/<?= $queryAspirasi['lampiran_1'] ?>"
                                 type="button" class="btn badge btn-primary mb-2" download>Unduh</a>
@@ -213,8 +206,8 @@
                             <?php if ($queryAspirasi['lampiran_2'] != null): ?>
                             <hr>
                             <?php
-                    $ekstensi_2 = substr($queryAspirasi['lampiran_2'], -3);
-                    if ($ekstensi_2 == 'mp4') { ?>
+                            $ekstensi_2 = substr($queryAspirasi['lampiran_2'], -3);
+                            if ($ekstensi_2 == 'mp4') { ?>
                             Lampiran 2 - <b><?= $queryAspirasi['lampiran_2'] ?></b> - <a
                                 href="<?= base_url() ?>assets/images/laporan/aspirasi/<?= $queryAspirasi['nim'] ?>/<?= $queryAspirasi['lampiran_2'] ?>"
                                 type="button" class="btn badge btn-primary mb-2" download>Unduh</a>
@@ -242,8 +235,8 @@
                             <?php if ($queryAspirasi['lampiran_3'] != null): ?>
                             <hr>
                             <?php
-                    $ekstensi_3 = substr($queryAspirasi['lampiran_3'], -3);
-                    if ($ekstensi_3 == 'mp4') { ?>
+                            $ekstensi_3 = substr($queryAspirasi['lampiran_3'], -3);
+                            if ($ekstensi_3 == 'mp4') { ?>
                             Lampiran 3 - <b><?= $queryAspirasi['lampiran_3'] ?></b> - <a
                                 href="<?= base_url() ?>assets/images/laporan/aspirasi/<?= $queryAspirasi['nim'] ?>/<?= $queryAspirasi['lampiran_3'] ?>"
                                 type="button" class="btn badge btn-primary mb-2" download>Unduh</a>
@@ -277,6 +270,44 @@
             </div>
         </div>
 
+        <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <form action="<?= site_url() ?>aspirasi/vnv/tolak/<?= $queryAspirasi['id_aspirasi'] ?>" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel1">
+                                Tolak Aspirasi
+                            </h5>
+                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                <i data-feather="x"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-secondary" role="alert">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                <span>Silakan input alasan Anda menolak Aspirasi ini.</span>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="alasan_tolak" cols="15" rows="2.5" placeholder="Alasan" maxlength="50"
+                                    class="form-control" required></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Tutup</span>
+                            </button>
+                            <button type="submit" class="btn btn-danger ml-1">
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Tolak</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade text-left w-100" id="xlarge<?= $queryAspirasi['p_id'] ?>" tabindex="-1" role="dialog"
             aria-labelledby="myModalLabel16" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
@@ -297,25 +328,21 @@
                                 <div class="form-group">
                                     <div class="alert alert-secondary" role="alert">
                                         <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                        <span>Ekstensi file yang didukung : jpg, jpeg, png, pdf &
-                                            mp4. Anda dapat
-                                            mengunggah bukti selesai hingga
+                                        <span>Ekstensi file yang didukung: jpg, jpeg, png, pdf &
+                                            mp4. Anda dapat mengunggah bukti selesai hingga
                                             maksimal 3 lampiran</span>
                                     </div>
-                                    <label>Lampiran</label>
-                                    <input type="file" class="dropify" id="lampiran_1" name="lampiran_1"
-                                        data-allowed-file-extensions="jpg jpeg png pdf mp4" required>
+                                    <label>Lampiran 1</label>
+                                    <input type="file" class="form-control" id="lampiran_1" name="lampiran_1" required>
                                     <br>
                                     <div id="div_lam_2">
                                         <label>Lampiran 2 (Opsional)</label>
-                                        <input type="file" class="dropify" id="lampiran_2" name="lampiran_2"
-                                            data-allowed-file-extensions="jpg jpeg png pdf mp4">
+                                        <input type="file" class="form-control" id="lampiran_2" name="lampiran_2">
                                         <br>
                                     </div>
                                     <div id="div_lam_3">
                                         <label>Lampiran 3 (Opsional)</label>
-                                        <input type="file" class="dropify" id="lampiran_3" name="lampiran_3"
-                                            data-allowed-file-extensions="jpg jpeg png pdf mp4">
+                                        <input type="file" class="form-control" id="lampiran_3" name="lampiran_3">
                                     </div>
                                 </div>
                             </div>
@@ -325,7 +352,7 @@
                                 <i class="bx bx-x d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">Tutup</span>
                             </button>
-                            <button type="submit" class="btn btn-primary ml-1" data-backdrop="static">
+                            <button type="submit" class="btn btn-primary ml-1">
                                 <i class="bx bx-check d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">Konfirmasi</span>
                             </button>
@@ -338,64 +365,13 @@
     </div>
 
     <script src="<?= base_url() ?>assets/extensions/jquery/jquery.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/custom_aspirasi.js"></script>
     <script>
-    $(document).ready(function() {
-        var lampiran_1 = $('#lampiran_1').dropify();
-        var lampiran_2 = $('#lampiran_2').dropify();
-
-        lampiran_1.on('dropify.beforeClear', function(event, element) {
-            return confirm("Apakah Anda benar-benar ingin menghapus \"" + element.file
-                .name + "\" ?");
-        });
-        lampiran_2.on('dropify.beforeClear', function(event, element) {
-            return confirm("Apakah Anda benar-benar ingin menghapus \"" + element.file
-                .name + "\" ?");
-        });
-
-        lampiran_1.on('dropify.afterClear', function(event, element) {
-            $("#div_lam_2").hide();
-            $("#div_lam_3").hide();
-            Swal.fire(
-                'Dihapus!',
-                'File Anda telah dihapus.',
-                'success'
-            )
-        });
-        lampiran_2.on('dropify.afterClear', function(event, element) {
-            $("#div_lam_3").hide();
-            Swal.fire(
-                'Dihapus!',
-                'File Anda telah dihapus.',
-                'success'
-            )
-        });
-
-        lampiran_1.on('dropify.errors', function(event, element) {
-            console.log('Has Errors');
-        });
-        lampiran_2.on('dropify.errors', function(event, element) {
-            console.log('Has Errors');
-        });
-
-        $("#div_lam_2").hide();
-        $("#div_lam_3").hide();
-
-        $('#lampiran_1').on("change", function() {
-            if (document.getElementById("lampiran_1").files.length == 0) {
-                $("#div_lam_2").hide();
-                $("#div_lam_3").hide();
-            } else if (document.getElementById("lampiran_1").files.length == 1) {
-                $("#div_lam_2").show();
-            }
-        });
-
-        $('#lampiran_2').on("change", function() {
-            if (document.getElementById("lampiran_1").files.length == 0) {
-                $("#div_lam_3").hide();
-            } else if (document.getElementById("lampiran_1").files.length == 1) {
-                $("#div_lam_3").show();
-            }
-        });
-
+    $('textarea[name="alasan_tolak"]').maxlength({
+        alwaysShow: true,
+        validate: false,
+        allowOverMax: true,
+        customMaxAttribute: "50",
     });
     </script>
+</div>

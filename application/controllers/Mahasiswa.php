@@ -71,4 +71,38 @@ class Mahasiswa extends CI_Controller
         $this->load->view('__partials/_footer');
         $this->load->view('__partials/_js');
     }
+
+    public function edit_aspirasi($id_aspirasi)
+{
+    // 1. Ambil data aspirasi dari model berdasarkan ID
+    $aspirasi = $this->M_Aspirasi->getAspirasiById($id_aspirasi);
+
+    // 2. Lakukan validasi keamanan dan kepemilikan
+    if (!$aspirasi) {
+        // Cek jika aspirasi tidak ditemukan
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Aspirasi tidak ditemukan.</div>');
+        redirect('mahasiswa/aspirasi');
+    } elseif ($aspirasi['nim'] != $this->session->userdata('nim')) {
+        // Cek jika mahasiswa mencoba mengakses aspirasi milik orang lain
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Anda tidak memiliki akses untuk mengedit aspirasi ini.</div>');
+        redirect('mahasiswa/aspirasi');
+    } elseif ($aspirasi['status'] != '0') {
+        // Cek jika statusnya bukan 'Pending'
+        $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Aspirasi ini tidak dapat diubah karena sudah diproses.</div>');
+        redirect('mahasiswa/aspirasi');
+    }
+
+    // 3. Siapkan semua data yang dibutuhkan oleh view
+    $data['title'] = 'Edit Laporan Aspirasi';
+    $data['aspirasi'] = $aspirasi;
+    $data['kategori_list'] = $this->M_Aspirasi->getAspirasiKategori(); // Daftar kategori untuk dropdown
+    $this->M_Aspirasi->getAspirasiById($id_aspirasi);
+
+    // 4. Muat semua bagian view
+    $this->load->view('__partials/_head', $data);
+    $this->load->view('__partials/mahasiswa_topbar', $data);
+    $this->load->view('mahasiswa/edit_aspirasi', $data); // Kirim data ke view
+    $this->load->view('__partials/_footer');
+    $this->load->view('__partials/_js');
+}
 }

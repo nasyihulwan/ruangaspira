@@ -125,7 +125,7 @@ class Vnv extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal menolak aspirasi.</div>');
         }
 
-        redirect('aspirasi/vnv/detail/' . $id_aspirasi);
+        redirect('aspirasi/vnv/');
     }
 
     public function detail($id_aspirasi)

@@ -23,7 +23,7 @@ class DummyEmail extends CI_Controller
         echo "<h1>Mencoba Mengirim Email Percobaan...</h1>";
 
         // --- Data Dummy ---
-        $email_tujuan  = 'mmhdnnas@gmail.com'; // Sesuai permintaan Anda
+        $email_tujuan  = 'muhnasyihulwan@gmail.com'; // Sesuai permintaan Anda
         $judul         = 'Percobaan Kirim Email dari Controller Dummy';
         $status_lama   = 'Pending';
         $status_baru   = 'Proses';
