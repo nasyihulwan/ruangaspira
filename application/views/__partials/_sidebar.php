@@ -71,7 +71,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php if ($this->session->userdata('level') == 'master_admin' || $this->session->userdata('level') == 'admin') { ?>
+                        <?php if ($this->session->userdata('level') == 'master_admin') { ?>
                         <li class="sidebar-item <?php if ($this->uri->segment(2) == 'mahasiswa') echo 'active' ?>">
                             <a href="<?= site_url() ?>master/mahasiswa" class='sidebar-link'>
                                 <i class="bi bi-person-lines-fill"></i>

@@ -8,7 +8,7 @@ class Petugas extends CI_Controller
         parent::__construct();
         $this->load->model('M_Petugas');
         
-        if ($this->session->userdata('level') != 'master admin' && $this->session->userdata('level') != 'admin') {
+        if ($this->session->userdata('level') != 'master_admin') {
             redirect('dashboard');
         }
     }

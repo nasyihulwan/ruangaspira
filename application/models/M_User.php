@@ -52,4 +52,35 @@ class M_User extends CI_Model
     {
         return ['master_admin', 'hima_tekkom', 'prodi_tekkom'];
     }
+
+        function getMahasiswaCurrentSession()
+    {
+        return $this->db->get_where('mahasiswa', ['nim' => $this->session->userdata('nim')])->row_array();
+    }
+
+    function updateStatusMahasiswa()
+    {
+        $nim = $this->uri->segment(3);
+
+        $this->db->set('status', $this->input->post('status'));
+        $this->db->where('nim', $nim);
+        $this->db->update('mahasiswa');
+
+        redirect('master/mahasiswa');
+    }
+
+    function updateStatusPetugas()
+    {
+        $id_petugas = $this->uri->segment(3);
+
+        $this->db->set('status', $this->input->post('status'));
+        $this->db->where('id_petugas', $id_petugas);
+        $this->db->update('petugas');
+
+        redirect('master/petugas');
+    }
+
+    public function get_email_by_nim($nim) {
+        return $this->db->select('email')->get_where('mahasiswa', ['nim' => $nim])->row();
+    }
 }

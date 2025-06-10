@@ -20,7 +20,6 @@
                                                 <th>Judul Laporan</th>
                                                 <th style="width: 10%">Lampiran</th>
                                                 <th>Status</th>
-                                                <!-- <th style="width: 20%">Bukti Selesai</th> -->
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -28,13 +27,13 @@
                                             <?php $no = 1; foreach ($aspirasi as $l) { ?>
                                             <tr>
                                                 <td><?= $no++ ?></td>
-                                                <td><?= $l->p_id ?></td>
+                                                <td><?= $l->id_aspirasi ?></td>
                                                 <td><?= $l->tgl_aspirasi ?></td>
                                                 <td><?= $l->judul_aspirasi ?></td>
                                                 <td>
                                                     <button type="button" class="btn badge bg-primary"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#galleryModal<?= $l->p_id ?>">
+                                                        data-bs-target="#galleryModal<?= $l->id_aspirasi ?>">
                                                         Lihat
                                                     </button>
                                                 </td>
@@ -44,7 +43,7 @@
                                                 <td style='white-space: nowrap'>
                                                     <span class="btn badge bg-danger">Ditolak</span>
                                                     <button type="button" class="btn badge bg-primary"
-                                                        data-bs-target="#alasanTolak<?= $l->p_id ?>"
+                                                        data-bs-target="#alasanTolak<?= $l->id_aspirasi ?>"
                                                         data-bs-toggle="modal">
                                                         Lihat Alasan
                                                     </button>
@@ -57,27 +56,23 @@
                                                 <td style='white-space: nowrap'>
                                                     <span class="btn badge bg-success">Selesai</span>
                                                 </td>
-
-                                                <?php } ?>
-
-                                                <?php if($l->status == 'selesai') { ?>
-                                                <td style='white-space: nowrap'>
-                                                    
-                                                    <button type="button" class="btn badge bg-primary"
-                                                        data-bs-target="#buktiSelesai<?= $l->p_id ?>"
-                                                        data-bs-toggle="modal">
-                                                        Lihat Bukti Selesai
-                                                    </button>
-                                                </td>
                                                 <?php } ?>
 
                                                 <td style='white-space: nowrap'>
+                                                    <?php if($l->status == 'selesai') { ?>
+                                                        <button type="button" class="btn badge bg-primary"
+                                                            data-bs-target="#buktiSelesai<?= $l->id_aspirasi ?>"
+                                                            data-bs-toggle="modal">
+                                                            Lihat Bukti Selesai
+                                                        </button>
+                                                    <?php } ?>
+                                                    <?php if ($l->status == '0') { ?>
+                                                    <a href="<?= base_url('mahasiswa/edit_aspirasi/' . $l->id_aspirasi) ?>"
+                                                        class="btn badge bg-warning">Edit</a>
+                                                    <?php } ?>
                                                 </td>
-
-                                                
                                             </tr>
 
-                                            <!-- Modal -->
                                             <div class="modal fade" id="exampleModalScrollable<?= $l->id_aspirasi ?>"
                                                 tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -107,7 +102,7 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="myModalLabel1">
-                                                                <?= $l->p_id ?> - <?= $l->judul_aspirasi ?> -
+                                                                <?= $l->id_aspirasi ?> - <?= $l->judul_aspirasi ?> -
                                                                 <?= $l->nim ?>
                                                             </h5>
                                                             <button type="button" class="close rounded-pill"
@@ -134,7 +129,7 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="exampleModalScrollableTitle">
-                                                                <?= $l->p_id ?> - <?= $l->judul_aspirasi ?> -
+                                                                <?= $l->id_aspirasi ?> - <?= $l->judul_aspirasi ?> -
                                                                 <?= $l->nim ?>
                                                             </h5>
                                                             <button type="button" class="close" data-bs-dismiss="modal"
@@ -154,7 +149,7 @@
                                             </div>
 
 
-                                            <div class="modal fade" id="galleryModal<?= $l->p_id ?>" tabindex="-1"
+                                            <div class="modal fade" id="galleryModal<?= $l->id_aspirasi ?>" tabindex="-1"
                                                 role="dialog" aria-labelledby="galleryModalTitle" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-centered scrollable"
                                                     role="document">
@@ -172,8 +167,8 @@
                                                         <div class="modal-body">
                                                             <div class="alert alert-secondary" role="alert">
                                                                 <?php
-                        $ekstensi_1 = substr($l->lampiran_1, -3);
-                        if ($ekstensi_1 == 'mp4') { ?>
+                                        $ekstensi_1 = substr($l->lampiran_1, -3);
+                                        if ($ekstensi_1 == 'mp4') { ?>
                                                                 Lampiran 1 - <b><?= $l->lampiran_1 ?></b> - <a
                                                                     href="<?= base_url() ?>assets/images/laporan/aspirasi/<?= $l->nim ?>/<?= $l->lampiran_1 ?>"
                                                                     type="button" class="btn badge btn-primary mb-2"
@@ -204,8 +199,8 @@
                                                                 <?php if ($l->lampiran_2 != null): ?>
                                                                 <hr>
                                                                 <?php
-                        $ekstensi_2 = substr($l->lampiran_2, -3);
-                        if ($ekstensi_2 == 'mp4') { ?>
+                                        $ekstensi_2 = substr($l->lampiran_2, -3);
+                                        if ($ekstensi_2 == 'mp4') { ?>
                                                                 Lampiran 2 - <b><?= $l->lampiran_2 ?></b> - <a
                                                                     href="<?= base_url() ?>assets/images/laporan/aspirasi/<?= $l->nim ?>/<?= $l->lampiran_2 ?>"
                                                                     type="button" class="btn badge btn-primary mb-2"
@@ -237,8 +232,8 @@
                                                                 <?php if ($l->lampiran_3 != null): ?>
                                                                 <hr>
                                                                 <?php
-                        $ekstensi_3 = substr($l->lampiran_3, -3);
-                                if ($ekstensi_3 == 'mp4') { ?>
+                                        $ekstensi_3 = substr($l->lampiran_3, -3);
+                                            if ($ekstensi_3 == 'mp4') { ?>
                                                                 Lampiran 3 - <b><?= $l->lampiran_3 ?></b> - <a
                                                                     href="<?= base_url() ?>assets/images/laporan/aspirasi/<?= $l->nim ?>/<?= $l->lampiran_3 ?>"
                                                                     type="button" class="btn badge btn-primary mb-2"
@@ -277,7 +272,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="modal fade" id="buktiSelesai<?= $l->p_id ?>" tabindex="-1"
+                                            <div class="modal fade" id="buktiSelesai<?= $l->id_aspirasi ?>" tabindex="-1"
                                                 role="dialog" aria-labelledby="galleryModalTitle" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-centered scrollable"
                                                     role="document">
@@ -301,8 +296,8 @@
                                                             </div>
 
                                                             <?php
-                    $ekstensi_1 = substr($l->ls_1, -3);
-                    if ($ekstensi_1 == 'mp4') { ?>
+                                    $ekstensi_1 = substr($l->ls_1, -3);
+                                    if ($ekstensi_1 == 'mp4') { ?>
                                                             Lampiran 1 - <b><?= $l->ls_1 ?></b> - <a
                                                                 href="<?= base_url() ?>assets/images/laporan/selesai/<?= $l->ls_1 ?>"
                                                                 type="button" class="btn badge btn-primary mb-2"
@@ -332,8 +327,8 @@
                                                             <?php if ($l->ls_2 != null): ?>
                                                             <hr>
                                                             <?php
-                    $ekstensi_2 = substr($l->ls_2, -3);
-                    if ($ekstensi_2 == 'mp4') { ?>
+                                    $ekstensi_2 = substr($l->ls_2, -3);
+                                    if ($ekstensi_2 == 'mp4') { ?>
                                                             Lampiran 2 - <b><?= $l->ls_2 ?></b> - <a
                                                                 href="<?= base_url() ?>assets/images/laporan/selesai/<?= $l->ls_2 ?>"
                                                                 type="button" class="btn badge btn-primary mb-2"
@@ -364,8 +359,8 @@
                                                             <?php if ($l->ls_3 != null): ?>
                                                             <hr>
                                                             <?php
-                    $ekstensi_3 = substr($l->ls_3, -3);
-                    if ($ekstensi_3 == 'mp4') { ?>
+                                    $ekstensi_3 = substr($l->ls_3, -3);
+                                    if ($ekstensi_3 == 'mp4') { ?>
                                                             Lampiran 3 - <b><?= $l->ls_3 ?></b> - <a
                                                                 href="<?= base_url() ?>assets/images/laporan/selesai/<?= $l->ls_3 ?>"
                                                                 type="button" class="btn badge btn-primary mb-2"
@@ -401,7 +396,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="modal fade" id="alasanTolak<?= $l->p_id ?>" tabindex="-1"
+                                            <div class="modal fade" id="alasanTolak<?= $l->id_aspirasi ?>" tabindex="-1"
                                                 role="dialog" aria-labelledby="galleryModalTitle" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-centered scrollable"
                                                     role="document">

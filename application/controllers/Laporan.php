@@ -40,8 +40,8 @@ class Laporan extends CI_Controller
             redirect('laporan');
         }
 
-        $data['title'] = 'Laporan Pengaduan';
-        $data['subtitle'] = 'Data laporan pengaduan sesuai periode';
+        $data['title'] = 'Arsip Aspirasi';
+        $data['subtitle'] = 'Data aspirasi sesuai periode';
 
         $data['status'] = $status;
         $data['dari'] = $dari;
